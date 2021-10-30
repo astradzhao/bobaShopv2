@@ -76,7 +76,7 @@ public class OrderManager : MonoBehaviour
             Order cOrder = orderList[i];
             for (int j = 0; j < drinksOnOrderScene.Count; j++) {
                 Drink currDrink = drinksOnOrderScene[j];
-                if (currOrder.equalsDrink(currDrink)) {
+                if (cOrder.equalsDrink(currDrink)) {
                      takeOrderBtn.image.sprite = orderDoneSprite;
                      dm.RemoveFromOrder(currDrink);
                      this.RemoveOrder(cOrder);
