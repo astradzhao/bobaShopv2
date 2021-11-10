@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class OrderManager : MonoBehaviour
 {
     public Button takeOrderBtn;
+    public Button myOrdersBtn;
     public static List<Order> orderList;
+    //public static Dictionary<int, GameObject> orderBttnList;
     public GameObject drinkManager;
     public static OrderManager singleton;
     public Sprite orderDoneSprite;
     private List<Drink> drinksOnOrderScene;
     private Order currOrder;
     public int totalOrderCount;
+
+
+    public GameObject buttonScrollList;
+    public Transform buttonListContent;
+    public GameObject newOrderBttnPrefab;
 
     private void Awake() {
         totalOrderCount = 1;
@@ -22,6 +30,7 @@ public class OrderManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             singleton = this;
             orderList = new List<Order>();
+           // orderBttnList = new Dictionary<int, GameObject>();
             currOrder = null;
         }
         else if (singleton != this)
@@ -30,11 +39,17 @@ public class OrderManager : MonoBehaviour
         }
     }
 
+
     private void OnEnable() {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        myOrdersBtn = GameObject.Find("My Orders").GetComponent<Button>();
+        myOrdersBtn.onClick.AddListener(ShowOrderList);
+        buttonScrollList = GameObject.Find("ButtonScrollList");
+        buttonListContent = GameObject.Find("ButtonListContent").transform;
+        buttonScrollList.SetActive(false);
         drinksOnOrderScene = new List<Drink>();
         drinkManager = GameObject.Find("DrinkManager");
         string sceneName = SceneManager.GetActiveScene().name;
@@ -43,6 +58,7 @@ public class OrderManager : MonoBehaviour
             CheckDrinks();
         }
         ReloadOrderText();
+        ReAddMyOrdersList();
     }
 
     private void OnDisable() {
@@ -50,16 +66,31 @@ public class OrderManager : MonoBehaviour
     }
 
 
-
     public void AddOrder(Order newOrder) {
         orderList.Add(newOrder);
         this.currOrder = newOrder;
         ReloadOrderText();
+        AddOrderButton(newOrder);
         totalOrderCount += 1;
+    }
+
+     // Adds new order button to the UI
+    private void AddOrderButton(Order order) {
+        GameObject newButton = Instantiate(newOrderBttnPrefab) as GameObject;
+        newButton.transform.SetParent(buttonListContent, false);
+        Text newButtonText = newButton.transform.GetChild(0).gameObject.GetComponent<Text>();
+        newButtonText.text = order.GetOrderNum().ToString();
+        //orderBttnList.Add(totalOrderCount, newButton);
     }
 
     public void RemoveOrder(Order completedOrder) {
         orderList.Remove(completedOrder);
+
+        // Searches for the corresponding order# button of the completed order and deletes it from UI.
+        //GameObject completedOrderBttn = orderBttnList[completedOrder.GetOrderNum()];
+        //Destroy(completedOrderBttn);
+        //orderBttnList.Remove(completedOrder.GetOrderNum());
+
         if (orderList.Count <= 0) {
             currOrder = null;
         }
@@ -106,6 +137,40 @@ public class OrderManager : MonoBehaviour
 
             foreach (string top in currOrder.GetToppings()) {
                 toppingsTxt.text += "- " + top + "\n" ;
+            }
+        }
+    }
+
+    // Re-adds all the orders to the 'My Orders' UI between scenes
+    void ReAddMyOrdersList() {
+        if (orderList.Count > 0) {
+            foreach (Order order in orderList) {
+                AddOrderButton(order);
+            }
+        }
+    }
+
+    // Controls the visibility of the 'My Orders' UI.
+    public void ShowOrderList() {
+        if (buttonScrollList.activeSelf) {
+            buttonScrollList.SetActive(false);
+            print("Setting visibility off");
+        } else {
+            buttonScrollList.SetActive(true);
+            print("Setting visibility on");
+        }
+    }
+
+    // Upon clicking an order from 'My Orders,' this will search the orderList for an order with the same order# as the
+    // button clicked. It will then set that order as the current order.
+    public void SearchOrders(Text orderNumText) {
+        int orderNum = Convert.ToInt32(orderNumText.text);
+        foreach (Order order in orderList) {
+            if (order.GetOrderNum() == orderNum) {
+                currOrder = order;
+                ReloadOrderText();
+                print("Current Order displayed");
+                return;
             }
         }
     }
