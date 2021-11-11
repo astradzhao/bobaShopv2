@@ -15,7 +15,7 @@ public class OrderManager : MonoBehaviour
     public static OrderManager singleton;
     public Sprite orderDoneSprite;
     private List<Drink> drinksOnOrderScene;
-    private Order currOrder;
+    private static Order currOrder;
     public int totalOrderCount;
 
 
@@ -68,7 +68,7 @@ public class OrderManager : MonoBehaviour
 
     public void AddOrder(Order newOrder) {
         orderList.Add(newOrder);
-        this.currOrder = newOrder;
+        currOrder = newOrder;
         ReloadOrderText();
         AddOrderButton(newOrder);
         totalOrderCount += 1;
