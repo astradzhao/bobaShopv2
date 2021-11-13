@@ -72,7 +72,7 @@ public class DrinkManager : MonoBehaviour
                     RectTransform dR = currObject.GetComponent<RectTransform>();
                     dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
                     currObject.transform.SetParent(canvas.transform);
-                    reloadText(d.drink);
+                    reloadText(d.drink, currObject);
                 }
 
                 if (drinks["MixingScene2"].Count != 0) {
@@ -91,7 +91,7 @@ public class DrinkManager : MonoBehaviour
                     RectTransform dR = currObject.GetComponent<RectTransform>();
                     dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
                     currObject.transform.SetParent(canvas.transform);
-                    reloadText(d.drink);
+                    reloadText(d.drink, currObject);
                 }
 
                 if (drinks["MixingScene3"].Count != 0) {
@@ -110,7 +110,7 @@ public class DrinkManager : MonoBehaviour
                     RectTransform dR = currObject.GetComponent<RectTransform>();
                     dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
                     currObject.transform.SetParent(canvas.transform);
-                    reloadText(d.drink);
+                    reloadText(d.drink, currObject);
                 }
             }
         }
@@ -134,14 +134,14 @@ public class DrinkManager : MonoBehaviour
                 RectTransform dR = currObject.GetComponent<RectTransform>();
                 dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
                 currObject.transform.SetParent(canvas.transform);
-                reloadText(d.drink);
+                reloadText(d.drink, currObject);
             }
         }
         
     }
 
-    public void reloadText(Drink d) {
-        Text teaBaseTxt = GameObject.Find("BaseText").GetComponent<Text>();
+    public void reloadText(Drink d, GameObject o) {
+        Text teaBaseTxt = o.transform.Find("BaseText").GetComponent<Text>();
         if (d.getBase() == null) {
             teaBaseTxt.text = "";
         }
@@ -149,10 +149,10 @@ public class DrinkManager : MonoBehaviour
             teaBaseTxt.text = d.getBase();
         }
 
-        Text ingredientsTxt = GameObject.Find("IngredientsText").GetComponent<Text>();
+        Text ingredientsTxt = o.transform.Find("IngredientsText").GetComponent<Text>();
         ingredientsTxt.text = d.getIngText();
 
-        Text toppingsTxt = GameObject.Find("ToppingsText").GetComponent<Text>();
+        Text toppingsTxt = o.transform.Find("ToppingsText").GetComponent<Text>();
         toppingsTxt.text = d.getTopText();
     }
     public void addDrink(Drink d, string station) {

@@ -8,10 +8,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     private GameObject drinkManager;
     private GameObject orderManager;
+    private GameObject mixingManager;
     void Start()
     {
         drinkManager = GameObject.Find("DrinkManager");
         orderManager = GameObject.Find("OrderManager");
+        mixingManager = GameObject.Find("MixerManager");
     }
 
     // Update is called once per frame
@@ -64,6 +66,23 @@ public class GameManager : MonoBehaviour
         DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
         dm.Trash();
     }
+    #endregion
+
+    #region Mixing Functions
+    public void startMixer(int m) {
+        MixingManager mm = mixingManager.GetComponent<MixingManager>();
+        mm.startMixer(m);
+    }
+    public void stopMixer(int m) {
+        MixingManager mm = mixingManager.GetComponent<MixingManager>();
+        mm.stopMixer(m);
+    }
+
+    public void resetMixer(int m) {
+        MixingManager mm = mixingManager.GetComponent<MixingManager>();
+        mm.reset(m);
+    }
+
     #endregion
 
     #region Sealing Functions
