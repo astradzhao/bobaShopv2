@@ -483,12 +483,12 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: SealingScene
+          m_StringArgument: MixingScene
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1367011316}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
-        m_MethodName: SealingScene
+        m_MethodName: MixingScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1564,12 +1564,48 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2187409409248597730, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187409409248597730, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1367011316}
     - target: {fileID: 2187409409248597730, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OrderScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295489573837730547, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295489573837730547, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295489573837730547, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295489573837730547, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1367011316}
+    - target: {fileID: 5295489573837730547, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295489573837730547, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MixingScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295489573837730547, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SceneManage, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295489573837730547, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5626571225687744535, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
       propertyPath: m_Name
@@ -2495,6 +2531,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DrinkManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4787578334814173959, guid: 3ecdd2602e7a27d46bba43fdc23ada96, type: 3}
+      propertyPath: myDrink
+      value: 
+      objectReference: {fileID: 1498152683440989783, guid: 5ce09e1333207f648ae5ec4f3a5e0672, type: 3}
     - target: {fileID: 4787578334814173960, guid: 3ecdd2602e7a27d46bba43fdc23ada96, type: 3}
       propertyPath: m_RootOrder
       value: 4

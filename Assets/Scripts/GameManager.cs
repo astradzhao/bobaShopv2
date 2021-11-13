@@ -38,9 +38,21 @@ public class GameManager : MonoBehaviour
             DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
             dm.BaseToIng();
         }
-        else if (s == "SealingScene") {
+        else if (s == "MixingScene") {
             DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
-            dm.IngToSeal();
+            dm.IngToMix();
+        }
+        else if (s == "SealingScene1") {
+            DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
+            dm.Mix1ToSeal();
+        }
+        else if (s == "SealingScene2") {
+            DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
+            dm.Mix2ToSeal();
+        }
+        else if (s == "SealingScene3") {
+            DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
+            dm.Mix3ToSeal();
         }
         else if (s == "OrderScene") {
             DrinkManager dm = drinkManager.GetComponent<DrinkManager>();

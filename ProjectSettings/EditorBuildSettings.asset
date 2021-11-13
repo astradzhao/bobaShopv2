@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SealingScene.unity
     guid: 47aca398716ec694c96fe24403cdc1f2
+  - enabled: 1
+    path: Assets/Scenes/MixingScene.unity
+    guid: 022d1e2ae1fa2cc4398b2103a1228087
   m_configObjects: {}
