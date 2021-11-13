@@ -1,53 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
- 
+using UnityEngine.UI;
+using System;
+
 public class Sealer : MonoBehaviour
 {
-    public float timeCycle;
-    public Vector3 pointB;
-    public Vector3 pointA;
-    private int goingRight;
-    private IEnumerator co;
-    private IEnumerator coRight;
-    private IEnumerator coLeft;
-    public void startMoving() {
-        co = Move();
-        StartCoroutine(co);
-    }
+    public float delta = 125.0f;   // Amount to move left and right from the start point
+    public float speed = 2.0f; 
+    private bool isSealed;
+    private Vector3 startPos;
+    public Button sealButton;
 
-    public void stopMoving() {
-        if (co == null && coRight == null && coLeft == null) {
-            return;
-        }
-        StopCoroutine(co);
-        StopCoroutine(coRight);
-        StopCoroutine(coLeft);
-        co = null;
-        coRight = null;
-        coLeft = null;
-    }
-
-    IEnumerator Move()
+    // Start is called before the first frame update
+    void Start()
     {
-        while(true)
-        {
-            coRight = MoveObject(transform, pointA, pointB, timeCycle);
-            coLeft = MoveObject(transform, pointB, pointA, timeCycle);
-            yield return StartCoroutine(coRight);
-            yield return StartCoroutine(coLeft);
-        }
+        startPos = transform.position;
+        Console.WriteLine(transform.position);
+        Button btn = sealButton.GetComponent<Button>();
+        btn.onClick.AddListener(SealDrink);
     }
 
-    IEnumerator MoveObject(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
+    // Update is called once per frame
+    void Update()
     {
-        var i= 0.0f;
-        var rate= 1.0f/time;
-        while(i < 1.0f)
+        if (!isSealed) 
         {
-            i += Time.deltaTime * rate;
-            thisTransform.position = Vector3.Lerp(startPos, endPos, i);
-            yield return null;
-        }
+            Vector3 v = startPos;
+            v.x += (delta * Mathf.Sin(Time.time * speed));
+            transform.position = v; 
+        } 
+    }
+
+    public void SealDrink()
+    {
+        isSealed = true;  // stop the seal from automatically moving 
+        Vector3 v = transform.position;  
+        v.y -= 5.5f;
+        transform.position = v;
+        sealButton.interactable = false;  // prevent user from sealing multiple times
+        // middle position v.x = 257.0f
+        // ratio 0.8f comes from max points / delta
+        Score.scoreValue = (int) (100 - (Math.Abs(257.0f - v.x) * 0.8f));
     }
 }
