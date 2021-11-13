@@ -17,6 +17,7 @@ public class OrderManager : MonoBehaviour
     private List<Drink> drinksOnOrderScene;
     private static Order currOrder;
     public int totalOrderCount;
+    public int ordersCompleted = 0;
 
 
     public GameObject buttonScrollList;
@@ -110,6 +111,7 @@ public class OrderManager : MonoBehaviour
                 if (cOrder.equalsDrink(currDrink)) {
                      takeOrderBtn.image.sprite = orderDoneSprite;
                      dm.RemoveFromOrder(currDrink);
+                     ordersCompleted += 1;
                      this.RemoveOrder(cOrder);
                      this.ReloadOrderText();
                 }
@@ -126,6 +128,8 @@ public class OrderManager : MonoBehaviour
         ingredientsTxt.text = "";
         Text toppingsTxt = GameObject.Find("ToppingsListUI").GetComponent<Text>();
         toppingsTxt.text = "";
+        Text ordersCompletedTxt = GameObject.Find("OrdersCompleted").GetComponent<Text>();
+        ordersCompletedTxt.text = "Orders Completed: " + ordersCompleted;
 
         if (currOrder != null) {
             orderNumTxt.text += currOrder.GetOrderNum().ToString();
