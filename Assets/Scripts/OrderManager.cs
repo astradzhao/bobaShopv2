@@ -16,6 +16,7 @@ public class OrderManager : MonoBehaviour
     public Sprite orderDoneSprite;
     private List<Drink> drinksOnOrderScene;
     private static Order currOrder;
+    private static bool myOrdersTabOpen;
     public int totalOrderCount;
     public int ordersCompleted = 0;
 
@@ -50,7 +51,9 @@ public class OrderManager : MonoBehaviour
         myOrdersBtn.onClick.AddListener(ShowOrderList);
         buttonScrollList = GameObject.Find("ButtonScrollList");
         buttonListContent = GameObject.Find("ButtonListContent").transform;
-        buttonScrollList.SetActive(false);
+        if (!myOrdersTabOpen) {
+           buttonScrollList.SetActive(false); 
+        }
         drinksOnOrderScene = new List<Drink>();
         drinkManager = GameObject.Find("DrinkManager");
         string sceneName = SceneManager.GetActiveScene().name;
@@ -158,9 +161,11 @@ public class OrderManager : MonoBehaviour
     public void ShowOrderList() {
         if (buttonScrollList.activeSelf) {
             buttonScrollList.SetActive(false);
+            myOrdersTabOpen = false;
             print("Setting visibility off");
         } else {
             buttonScrollList.SetActive(true);
+            myOrdersTabOpen = true;
             print("Setting visibility on");
         }
     }
