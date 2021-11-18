@@ -16,7 +16,9 @@ public class OrderManager : MonoBehaviour
     public Sprite orderDoneSprite;
     private List<Drink> drinksOnOrderScene;
     private static Order currOrder;
+    private static bool myOrdersTabOpen;
     public int totalOrderCount;
+    public int ordersCompleted = 0;
 
 
     public GameObject buttonScrollList;
@@ -49,7 +51,9 @@ public class OrderManager : MonoBehaviour
         myOrdersBtn.onClick.AddListener(ShowOrderList);
         buttonScrollList = GameObject.Find("ButtonScrollList");
         buttonListContent = GameObject.Find("ButtonListContent").transform;
-        buttonScrollList.SetActive(false);
+        if (!myOrdersTabOpen) {
+           buttonScrollList.SetActive(false); 
+        }
         drinksOnOrderScene = new List<Drink>();
         drinkManager = GameObject.Find("DrinkManager");
         string sceneName = SceneManager.GetActiveScene().name;
@@ -110,6 +114,7 @@ public class OrderManager : MonoBehaviour
                 if (cOrder.equalsDrink(currDrink)) {
                      takeOrderBtn.image.sprite = orderDoneSprite;
                      dm.RemoveFromOrder(currDrink);
+                     ordersCompleted += 1;
                      this.RemoveOrder(cOrder);
                      this.ReloadOrderText();
                 }
@@ -126,6 +131,8 @@ public class OrderManager : MonoBehaviour
         ingredientsTxt.text = "";
         Text toppingsTxt = GameObject.Find("ToppingsListUI").GetComponent<Text>();
         toppingsTxt.text = "";
+        Text ordersCompletedTxt = GameObject.Find("OrdersCompleted").GetComponent<Text>();
+        ordersCompletedTxt.text = "Orders Completed: " + ordersCompleted;
 
         if (currOrder != null) {
             orderNumTxt.text += currOrder.GetOrderNum().ToString();
@@ -154,9 +161,11 @@ public class OrderManager : MonoBehaviour
     public void ShowOrderList() {
         if (buttonScrollList.activeSelf) {
             buttonScrollList.SetActive(false);
+            myOrdersTabOpen = false;
             print("Setting visibility off");
         } else {
             buttonScrollList.SetActive(true);
+            myOrdersTabOpen = true;
             print("Setting visibility on");
         }
     }
