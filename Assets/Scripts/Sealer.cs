@@ -41,6 +41,6 @@ public class Sealer : MonoBehaviour
         sealButton.interactable = false;  // prevent user from sealing multiple times
         // middle position v.x = 257.0f
         // ratio 0.8f comes from max points / delta
-        Score.scoreValue = (int) (100 - (Math.Abs(257.0f - v.x) * 0.8f));
+        Score.scoreValue = (int) (100 - (Math.Abs(startPos.x - v.x) * 0.8f));
     }
 }
