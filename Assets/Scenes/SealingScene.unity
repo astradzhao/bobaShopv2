@@ -987,7 +987,7 @@ RectTransform:
   m_GameObject: {fileID: 1259507067}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 2040461700}
   m_RootOrder: 0
@@ -1164,8 +1164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d500616fd0ba4e649851f40bd5e99e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delta: 125
   speed: 2
+  delta: 125
   sealButton: {fileID: 2040461701}
 --- !u!114 &1525994009
 MonoBehaviour:
