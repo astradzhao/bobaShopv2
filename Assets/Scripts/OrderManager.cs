@@ -20,7 +20,7 @@ public class OrderManager : MonoBehaviour
     public int totalOrderCount;
     public int ordersCompleted = 0;
 
-
+    // 'My Orders' List Variables
     public GameObject buttonScrollList;
     public Transform buttonListContent;
     public GameObject newOrderBttnPrefab;
