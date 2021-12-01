@@ -10,7 +10,6 @@ public class CustomerManager : MonoBehaviour
 
     public static CustomerManager singleton;
     public GameObject customerPrefab;
-    //public Transform SceneBackground;
     public Canvas canvas;
 
     private void Awake() {
@@ -18,6 +17,7 @@ public class CustomerManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             singleton = this;
+            canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
         }
         else if (singleton != this)
         {
@@ -32,8 +32,8 @@ public class CustomerManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "OrderScene") {
-            //SceneBackground = GameObject.Find("SceneBackground").transform;
             canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            Debug.Log("Adding Customer");
             AddCustomer();
         }
     }
@@ -43,8 +43,6 @@ public class CustomerManager : MonoBehaviour
     }
 
     private void AddCustomer() {
-        //RectTransform r = SceneBackground.GetComponent<RectTransform>();
-        //CanvasScaler canvasScale = SceneBackgroun.GetComponent<CanvasScaler>();
         RectTransform r = canvas.GetComponent<RectTransform>();
         CanvasScaler canvasScale = canvas.GetComponent<CanvasScaler>();
         float x = r.position.x;
@@ -53,17 +51,12 @@ public class CustomerManager : MonoBehaviour
         float h = res.y;
         float w = res.x;
 
-
-        GameObject newCustomer = Instantiate(customerPrefab, new Vector3(x - w / 4, y + h / 10, 0), Quaternion.identity);
+        GameObject newCustomer = Instantiate(customerPrefab);
+        //GameObject newCustomer = Instantiate(customerPrefab, new Vector3(x - w / 4, y + h / 10, 0), Quaternion.identity);
         newCustomer.transform.SetParent(canvas.transform);
         newCustomer.transform.localScale = new Vector3(1, 1, 1);
 
         Button customerButton = newCustomer.transform.Find("Take Order").GetComponent<Button>();
-
-        // IEnumerable
-        // newButton.transform.SetParent(buttonListContent, false);
-        // Text newButtonText = newButton.transform.GetChild(0).gameObject.GetComponent<Text>();
-        // newButtonText.text = order.GetOrderNum().ToString();
     }
 
     // private IEnumerator FadeIn(GameObject customer) {
