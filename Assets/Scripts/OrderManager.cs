@@ -10,14 +10,13 @@ public class OrderManager : MonoBehaviour
     public Button takeOrderBtn;
     public Button myOrdersBtn;
     public static List<Order> orderList;
-    //public static Dictionary<int, GameObject> orderBttnList;
     public GameObject drinkManager;
     public static OrderManager singleton;
     public Sprite orderDoneSprite;
     private List<Drink> drinksOnOrderScene;
     private static Order currOrder;
     private static bool myOrdersTabOpen;
-    public int totalOrderCount;
+    public int totalOrderCount = 1;
     public int ordersCompleted = 0;
 
     // 'My Orders' List Variables
@@ -26,13 +25,12 @@ public class OrderManager : MonoBehaviour
     public GameObject newOrderBttnPrefab;
 
     private void Awake() {
-        totalOrderCount = 1;
+        //totalOrderCount = 1;
         if (singleton == null)
         {
             DontDestroyOnLoad(gameObject);
             singleton = this;
             orderList = new List<Order>();
-           // orderBttnList = new Dictionary<int, GameObject>();
             currOrder = null;
         }
         else if (singleton != this)
@@ -58,7 +56,7 @@ public class OrderManager : MonoBehaviour
         drinkManager = GameObject.Find("DrinkManager");
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "OrderScene") {
-            takeOrderBtn = GameObject.Find("Take Order").GetComponent<Button>();
+            //takeOrderBtn = GameObject.Find("Take Order").GetComponent<Button>();
             CheckDrinks();
         }
         ReloadOrderText();
@@ -70,12 +68,14 @@ public class OrderManager : MonoBehaviour
     }
 
 
-    public void AddOrder(Order newOrder) {
+    public void AddOrder() {
+        Order newOrder = new Order(totalOrderCount);
         orderList.Add(newOrder);
         currOrder = newOrder;
         ReloadOrderText();
         AddOrderButton(newOrder);
         totalOrderCount += 1;
+        Debug.Log(totalOrderCount);
     }
 
      // Adds new order button to the UI
@@ -84,16 +84,10 @@ public class OrderManager : MonoBehaviour
         newButton.transform.SetParent(buttonListContent, false);
         Text newButtonText = newButton.transform.GetChild(0).gameObject.GetComponent<Text>();
         newButtonText.text = order.GetOrderNum().ToString();
-        //orderBttnList.Add(totalOrderCount, newButton);
     }
 
     public void RemoveOrder(Order completedOrder) {
         orderList.Remove(completedOrder);
-
-        // Searches for the corresponding order# button of the completed order and deletes it from UI.
-        //GameObject completedOrderBttn = orderBttnList[completedOrder.GetOrderNum()];
-        //Destroy(completedOrderBttn);
-        //orderBttnList.Remove(completedOrder.GetOrderNum());
 
         if (orderList.Count <= 0) {
             currOrder = null;
@@ -112,7 +106,7 @@ public class OrderManager : MonoBehaviour
             for (int j = 0; j < drinksOnOrderScene.Count; j++) {
                 Drink currDrink = drinksOnOrderScene[j];
                 if (cOrder.equalsDrink(currDrink)) {
-                     takeOrderBtn.image.sprite = orderDoneSprite;
+                     //takeOrderBtn.image.sprite = orderDoneSprite;
                      dm.RemoveFromOrder(currDrink);
                      ordersCompleted += 1;
                      this.RemoveOrder(cOrder);

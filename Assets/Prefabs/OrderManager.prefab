@@ -43,4 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718fa2abf00f90945b54f1556a7922f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  takeOrderBtn: {fileID: 0}
+  myOrdersBtn: {fileID: 0}
   drinkManager: {fileID: 0}
+  orderDoneSprite: {fileID: 21300000, guid: 0dca6480c575d6c4697063e5ff8275e4, type: 3}
+  totalOrderCount: 1
+  ordersCompleted: 0
+  buttonScrollList: {fileID: 0}
+  buttonListContent: {fileID: 0}
+  newOrderBttnPrefab: {fileID: 8636873894601689444, guid: e2f5e2468087efc47bb348c21ff15b25, type: 3}

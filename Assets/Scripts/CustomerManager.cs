@@ -9,15 +9,20 @@ public class CustomerManager : MonoBehaviour
 {
 
     public static CustomerManager singleton;
+    public static List<GameObject> customerList;
     public GameObject customerPrefab;
     public Canvas canvas;
+
+    private GameObject orderManager;
+    private OrderManager orderManagerScript;
+
 
     private void Awake() {
         if (singleton == null)
         {
             DontDestroyOnLoad(gameObject);
             singleton = this;
-            canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            customerList = new List<GameObject>();
         }
         else if (singleton != this)
         {
@@ -33,7 +38,8 @@ public class CustomerManager : MonoBehaviour
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "OrderScene") {
             canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
-            Debug.Log("Adding Customer");
+            orderManager = GameObject.Find("OrderManager");
+            orderManagerScript = orderManager.GetComponent<OrderManager>(); 
             AddCustomer();
         }
     }
@@ -51,22 +57,8 @@ public class CustomerManager : MonoBehaviour
         float h = res.y;
         float w = res.x;
 
-        GameObject newCustomer = Instantiate(customerPrefab);
-        //GameObject newCustomer = Instantiate(customerPrefab, new Vector3(x - w / 4, y + h / 10, 0), Quaternion.identity);
+        GameObject newCustomer = Instantiate(customerPrefab, new Vector3(x - w / 4, y + h / 10, 0), Quaternion.identity);
         newCustomer.transform.SetParent(canvas.transform);
         newCustomer.transform.localScale = new Vector3(1, 1, 1);
-
-        Button customerButton = newCustomer.transform.Find("Take Order").GetComponent<Button>();
     }
-
-    // private IEnumerator FadeIn(GameObject customer) {
-
-    // }
-
-    // private IEnumerator FadeOut(GameObject customer) {
-        
-    // } 
-
-
-
 }
