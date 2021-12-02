@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void resetMixer(int m) {
         MixingManager mm = mixingManager.GetComponent<MixingManager>();
+        mm.addScore(m);
         mm.reset(m);
     }
 
