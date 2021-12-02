@@ -312,7 +312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &670633203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,15 +325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44d4f273ecb1dd4cbd403dee854afab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  takeOrderBtn: {fileID: 0}
-  orderManager: {fileID: 1687507819}
-  orderAlertSprite: {fileID: 21300000, guid: 787a69f6a92e3b349a54e4576957d175, type: 3}
-  orderTakingSprite: {fileID: 21300000, guid: 937f07d863af42d4f835b7cca96c1398, type: 3}
-  orderDoneSprite: {fileID: 21300000, guid: 0dca6480c575d6c4697063e5ff8275e4, type: 3}
-  orderNumTxt: {fileID: 0}
-  teaBaseTxt: {fileID: 0}
-  ingredientsTxt: {fileID: 0}
-  toppingsTxt: {fileID: 0}
 --- !u!4 &670633204
 Transform:
   m_ObjectHideFlags: 0
@@ -581,11 +572,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657972709}
   m_CullTransparentMesh: 1
---- !u!1 &1687507819 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8480311905184271836, guid: 8007a7d4ee140894ea6afdc5a327a563, type: 3}
-  m_PrefabInstance: {fileID: 8480311904589520567}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1761929757 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 851928683284670537, guid: d75f759f59273284cb28a95ab4bda833, type: 3}
@@ -957,17 +943,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8480311905184271835, guid: 8007a7d4ee140894ea6afdc5a327a563, type: 3}
-      propertyPath: takeOrderBtn
-      value: 
+      propertyPath: totalOrderCount
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8480311905184271835, guid: 8007a7d4ee140894ea6afdc5a327a563, type: 3}
-      propertyPath: orderDoneSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 0dca6480c575d6c4697063e5ff8275e4, type: 3}
-    - target: {fileID: 8480311905184271835, guid: 8007a7d4ee140894ea6afdc5a327a563, type: 3}
-      propertyPath: newOrderBttnPrefab
-      value: 
-      objectReference: {fileID: 8636873894601689444, guid: e2f5e2468087efc47bb348c21ff15b25, type: 3}
     - target: {fileID: 8480311905184271836, guid: 8007a7d4ee140894ea6afdc5a327a563, type: 3}
       propertyPath: m_Name
       value: OrderManager
