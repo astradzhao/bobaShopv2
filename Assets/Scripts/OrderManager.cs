@@ -10,8 +10,10 @@ public class OrderManager : MonoBehaviour
     public Button takeOrderBtn;
     public Button myOrdersBtn;
     public static List<Order> orderList;
+    private static List<float> orderTimers;
     //public static Dictionary<int, GameObject> orderBttnList;
     public GameObject drinkManager;
+    public GameObject scoreManager;
     public static OrderManager singleton;
     public Sprite orderDoneSprite;
     private List<Drink> drinksOnOrderScene;
@@ -32,12 +34,19 @@ public class OrderManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             singleton = this;
             orderList = new List<Order>();
-           // orderBttnList = new Dictionary<int, GameObject>();
+            // orderBttnList = new Dictionary<int, GameObject>();
+            orderTimers = new List<float>();
             currOrder = null;
         }
         else if (singleton != this)
         {
             Destroy (gameObject);
+        }
+    }
+
+    void Update() {
+        for (int i = 0; i < orderTimers.Count; i++) {
+            orderTimers[i] += Time.deltaTime;
         }
     }
 
@@ -56,6 +65,7 @@ public class OrderManager : MonoBehaviour
         }
         drinksOnOrderScene = new List<Drink>();
         drinkManager = GameObject.Find("DrinkManager");
+        scoreManager = GameObject.Find("ScoreManager");
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "OrderScene") {
             takeOrderBtn = GameObject.Find("Take Order").GetComponent<Button>();
@@ -72,6 +82,7 @@ public class OrderManager : MonoBehaviour
 
     public void AddOrder(Order newOrder) {
         orderList.Add(newOrder);
+        orderTimers.Add(0);
         currOrder = newOrder;
         ReloadOrderText();
         AddOrderButton(newOrder);
@@ -88,7 +99,9 @@ public class OrderManager : MonoBehaviour
     }
 
     public void RemoveOrder(Order completedOrder) {
+        int orderIndex = orderList.IndexOf(completedOrder);
         orderList.Remove(completedOrder);
+        orderTimers.RemoveAt(orderIndex);
 
         // Searches for the corresponding order# button of the completed order and deletes it from UI.
         //GameObject completedOrderBttn = orderBttnList[completedOrder.GetOrderNum()];
@@ -106,6 +119,7 @@ public class OrderManager : MonoBehaviour
 
     private void CheckDrinks() {
         DrinkManager dm = this.drinkManager.GetComponent<DrinkManager>();
+        ScoreManager sm = this.scoreManager.GetComponent<ScoreManager>();
         drinksOnOrderScene = dm.getStationDrinks("OrderScene");
         for (int i = 0; i < orderList.Count; i++) {
             Order cOrder = orderList[i];
@@ -113,8 +127,10 @@ public class OrderManager : MonoBehaviour
                 Drink currDrink = drinksOnOrderScene[j];
                 if (cOrder.equalsDrink(currDrink)) {
                      takeOrderBtn.image.sprite = orderDoneSprite;
-                     dm.RemoveFromOrder(currDrink);
+                     int orderIndex = orderList.IndexOf(cOrder);
+                     sm.addScore(cOrder, currDrink, orderTimers[orderIndex]);
                      ordersCompleted += 1;
+                     dm.RemoveFromOrder(currDrink);
                      this.RemoveOrder(cOrder);
                      this.ReloadOrderText();
                 }

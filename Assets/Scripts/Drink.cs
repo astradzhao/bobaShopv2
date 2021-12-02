@@ -10,6 +10,8 @@ public class Drink
     private List<string> toppings;
     private string ingredientsText;
     private string toppingsText;
+    private int sealingScore;
+    private int mixingScore;
     #endregion 
 
     #region Instantiation
@@ -19,6 +21,8 @@ public class Drink
         this.toppings = new List<string>();
         this.ingredientsText = "";
         this.toppingsText = "";
+        this.sealingScore = 0;
+        this.mixingScore = 0;
     }
     #endregion
     
@@ -90,5 +94,21 @@ public class Drink
             hash += i * 2 + this.ingredients[i].GetHashCode() * (i + 17);
         }
         return hash + this.teaBase.GetHashCode() * 13;
+    }
+
+    public void seal(int s) {
+        this.sealingScore = s;
+    }
+    
+    public void mix(int s) {
+        this.mixingScore = s;
+    }
+
+    public int getSealScore() {
+        return sealingScore;
+    }
+
+    public int getMixScore() {
+        return mixingScore;
     }
 }

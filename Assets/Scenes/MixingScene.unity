@@ -263,18 +263,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 492954089}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: moveDrinkTo
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: SealingScene3
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 415842453}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
         m_MethodName: SealingScene
@@ -297,6 +285,18 @@ MonoBehaviour:
           m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 492954089}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: moveDrinkTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SealingScene3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &27977556
@@ -420,18 +420,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 492954089}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: moveDrinkTo
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: SealingScene1
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 415842453}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
         m_MethodName: SealingScene
@@ -454,6 +442,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 492954089}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: moveDrinkTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SealingScene1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &43660536
@@ -1570,18 +1570,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 492954089}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: moveDrinkTo
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: SealingScene2
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 415842453}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
         m_MethodName: SealingScene
@@ -1604,6 +1592,18 @@ MonoBehaviour:
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 492954089}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: moveDrinkTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SealingScene2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1332113529
@@ -2356,3 +2356,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2cc40da53f75d429e3cffd48d178c8, type: 3}
+--- !u!1001 &5138453129080792546
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2746715994507838411, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746715994507838411, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1081.1836
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746715994507838411, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 895.5325
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746715994507838411, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11616.1875
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746715994507838411, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746715994507838411, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746715994507838411, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746715994507838411, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746715994507838411, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746715994507838411, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2746715994507838411, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6411191502937716313, guid: cf1a331f286001844bb4785b75171ce2, type: 3}
+      propertyPath: m_Name
+      value: ScoreManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cf1a331f286001844bb4785b75171ce2, type: 3}

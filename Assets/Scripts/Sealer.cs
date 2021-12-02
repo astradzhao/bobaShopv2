@@ -15,10 +15,12 @@ public class Sealer : MonoBehaviour
     private Vector3 canvasPos;
     private Vector3 startPos;
     public Button sealButton;
+    private GameObject drinkManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        drinkManager = GameObject.Find("DrinkManager");
         GameObject canvas = GameObject.Find("Canvas");
         canvasPos = canvas.transform.position;
         startPos = transform.position;
@@ -49,6 +51,10 @@ public class Sealer : MonoBehaviour
         sealButton.interactable = false;  // prevent user from sealing multiple times
         // middle position v.x = 257.0f
         // ratio 0.8f comes from max points / delta 
-        Score.scoreValue = (int) (100 - (Math.Abs(startPos.x - v.x) * 100 / delta));
+        DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
+        Drink currentDrink = dm.getStationDrinks("SealingScene")[0];
+        int sealScore = (int) (100 - (Math.Abs(startPos.x - v.x) * 100 / delta));
+        sealScore *= 5;
+        currentDrink.seal(sealScore);
     }
 }

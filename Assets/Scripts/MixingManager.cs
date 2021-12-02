@@ -81,6 +81,18 @@ public class MixingManager : MonoBehaviour
     public void stopMixer(int m) {
         mEnabled[m] = false;
     }
+
+    public void addScore(int m) {
+        DrinkManager dm = GameObject.Find("DrinkManager").GetComponent<DrinkManager>();
+        int n = m + 1;
+        string stationString = "MixingScene" + n;
+        if (dm.getStationDrinks(stationString).Count != 0) {
+            Drink currentDrink = dm.getStationDrinks(stationString)[0];
+            int score = (int) (1000 - ((Mathf.Abs(mixers[m] - 25)) / 25 * 1000));
+            currentDrink.mix(score);
+        }
+    }
+
     public void reset(int m) {
         mEnabled[m] = false;
         mixers[m] = 0;
