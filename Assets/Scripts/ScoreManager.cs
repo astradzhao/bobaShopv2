@@ -30,8 +30,8 @@ public class ScoreManager : MonoBehaviour
 
     public void addScore(Order order, Drink drink, float time) {
         float score = 0;
-        if (time > 80) {
-            score += Mathf.Max(0, 500 - ((time - 80) * 10));
+        if (time > 95) {
+            score += Mathf.Max(0, 500 - ((time - 95) * 10));
         }
         else {
             score += 500;

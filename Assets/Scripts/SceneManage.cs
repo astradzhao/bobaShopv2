@@ -23,6 +23,10 @@ public class SceneManage : MonoBehaviour
         SceneManager.LoadScene("SealingScene");
     }
 
+    public void ToppingsScene() {
+        SceneManager.LoadScene("ToppingsScene");
+    }
+
     public void MixingScene() {
         SceneManager.LoadScene("MixingScene");
     }

@@ -25,6 +25,7 @@ public class DrinkManager : MonoBehaviour
             drinks.Add("MixingScene1", new List<Drink>());
             drinks.Add("MixingScene2", new List<Drink>());
             drinks.Add("MixingScene3", new List<Drink>());
+            drinks.Add("ToppingsScene", new List<Drink>());
             drinks.Add("SealingScene", new List<Drink>());
             newDrink();
         }
@@ -149,6 +150,9 @@ public class DrinkManager : MonoBehaviour
             teaBaseTxt.text = d.getBase();
         }
 
+        Text milkTxt = o.transform.Find("MilkText").GetComponent<Text>();
+        milkTxt.text = d.getMilkText();
+
         Text ingredientsTxt = o.transform.Find("IngredientsText").GetComponent<Text>();
         ingredientsTxt.text = d.getIngText();
 
@@ -204,6 +208,17 @@ public class DrinkManager : MonoBehaviour
         SetTeaBaseText(b);
     }
 
+    public void addMilk(){
+        if (myDrink != null) {
+            DrinkComponent d = myDrink.GetComponent<DrinkComponent>();
+            if (d != null) {
+                d.drink.addMilk();
+                
+            }
+        }
+        AddMilkText();
+    }
+
     public void SetTeaBaseText(string b) {
         Text teaBaseTxt = GameObject.Find("BaseText").GetComponent<Text>();
         if (teaBaseTxt != null) {
@@ -211,6 +226,11 @@ public class DrinkManager : MonoBehaviour
             teaBaseTxt.text = b;
             }
         }
+    }
+
+    public void AddMilkText() {
+        Text milkTxt = GameObject.Find("MilkText").GetComponent<Text>();
+        milkTxt.text = "Milk";
     }
 
     public void AddIngredientText(string b, Drink d) {
@@ -300,14 +320,14 @@ public class DrinkManager : MonoBehaviour
         }
     }
 
-    public void Mix1ToSeal() {
+    public void Mix1ToTop() {
         List<Drink> mixDrinks = drinks["MixingScene1"];
         if (mixDrinks.Count <= 0) {
             return;
         }
         Drink d = mixDrinks[0]; 
         mixDrinks.RemoveAt(0);
-        drinks["SealingScene"].Add(d);
+        drinks["ToppingsScene"].Add(d);
         List<Drink> queuedDrinks = drinks["MixingScene"];
         if (queuedDrinks.Count > 0) {
             Drink firstD = queuedDrinks[0];
@@ -316,14 +336,14 @@ public class DrinkManager : MonoBehaviour
         }
     }
 
-    public void Mix2ToSeal() {
+    public void Mix2ToTop() {
         List<Drink> mixDrinks = drinks["MixingScene2"];
         if (mixDrinks.Count <= 0) {
             return;
         }
         Drink d = mixDrinks[0]; 
         mixDrinks.RemoveAt(0);
-        drinks["SealingScene"].Add(d);
+        drinks["ToppingsScene"].Add(d);
         List<Drink> queuedDrinks = drinks["MixingScene"];
         if (queuedDrinks.Count > 0) {
             Drink firstD = queuedDrinks[0];
@@ -332,20 +352,30 @@ public class DrinkManager : MonoBehaviour
         }
     }
 
-    public void Mix3ToSeal() {
+    public void Mix3ToTop() {
         List<Drink> mixDrinks = drinks["MixingScene3"];
         if (mixDrinks.Count <= 0) {
             return;
         }
         Drink d = mixDrinks[0]; 
         mixDrinks.RemoveAt(0);
-        drinks["SealingScene"].Add(d);
+        drinks["ToppingsScene"].Add(d);
         List<Drink> queuedDrinks = drinks["MixingScene"];
         if (queuedDrinks.Count > 0) {
             Drink firstD = queuedDrinks[0];
             queuedDrinks.RemoveAt(0);
             drinks["MixingScene3"].Add(firstD);
         }
+    }
+
+    public void TopToSeal() {
+        List<Drink> topDrinks = drinks["ToppingsScene"];
+        if (topDrinks.Count <= 0) {
+            return;
+        }
+        Drink d = topDrinks[0]; 
+        topDrinks.RemoveAt(0);
+        drinks["SealingScene"].Add(d);
     }
 
     public void SealToOrder() {

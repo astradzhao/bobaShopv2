@@ -5,13 +5,16 @@ using UnityEngine;
 public class Order
 {
     #region Private Class Variables
-    private static List<string> allTeaBases = new List<string>{"Oolong", "Green", "Black", "Rose"};
-    private static List<string> allIngredients = new List<string>{"Mango", "Taro", "Strawberry", "Matcha"};
-    private static List<string> allToppings = new List<string>{"Lychee Jelly", "Tapioca Pearls", "Strawberry Stars"};
+    private static List<string> allTeaBases = new List<string>{"Oolong", "Green", "Black", "Rose", "Herbal", "Thai"};
+    private static List<string> allIngredients = new List<string>{"Mango", "Taro", "Strawberry", "Matcha", "Honeydew", "Brown Sugar",
+        "Ginger", "Lychee"};
+    private static List<string> allToppings = new List<string>{"Lychee Jelly", "Tapioca Pearls", "Strawberry Stars", "Mango Pudding", "Crystal Boba", "Pineapple Jelly",
+        "Aloe", "Red Bean", "Coconut Jelly", "Custard Pudding"};
     #endregion
 
     #region Private Instance Variables
     private int numIngredients;
+    private int milk;
     private int numToppings;
     private int orderNum;
     private string teaBase;
@@ -31,10 +34,12 @@ public class Order
         this.teaBase = allTeaBases[Random.Range(0, allTeaBases.Count)];
         this.ingredients = new List<string>();
         this.toppings = new List<string>();
+        // 0 = doesn't have milk, 1 = has milk
+        this.milk = Random.Range(0, 2);
 
         // Number of Ingredients and toppings. Max for both is set to 2
-        numIngredients = Random.Range(1, 3);
-        numToppings = Random.Range(1, 3);
+        numIngredients = Random.Range(1, 4);
+        numToppings = Random.Range(1, 5);
 
         // Assign ingredients
         while (this.ingredients.Count < numIngredients) {
@@ -85,15 +90,19 @@ public class Order
         return this.GetHashCode() == o.GetHashCode();
     }
 
+    public bool hasMilk() {
+        return this.milk == 1;
+    }
+
     public override int GetHashCode()
     {
         int hash = 0;
         for (int i = 0; i < this.toppings.Count; i++) {
-            hash += i + this.toppings[i].GetHashCode() * (i + 11);
+            hash += this.toppings[i].GetHashCode() * 11;
         }
         for (int i = 0; i < this.ingredients.Count; i++) {
-            hash += i * 2 + this.ingredients[i].GetHashCode() * (i + 17);
+            hash += this.ingredients[i].GetHashCode() * 17;
         }
-        return hash + this.teaBase.GetHashCode() * 13;
+        return hash + this.teaBase.GetHashCode() * 13 + this.milk * 71;
     }
 }
