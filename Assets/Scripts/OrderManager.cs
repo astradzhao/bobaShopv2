@@ -7,7 +7,7 @@ using System;
 
 public class OrderManager : MonoBehaviour
 {
-    public Button takeOrderBtn;
+    //public Button takeOrderBtn; // Added
     public Button myOrdersBtn;
     public static List<Order> orderList;
     private static List<float> orderTimers;
@@ -20,7 +20,7 @@ public class OrderManager : MonoBehaviour
     private static Order currOrder;
     private static bool myOrdersTabOpen;
     public int totalOrderCount;
-    public int ordersCompleted = 0;
+    public int ordersCompleted;
 
 
     public GameObject buttonScrollList;
@@ -28,7 +28,8 @@ public class OrderManager : MonoBehaviour
     public GameObject newOrderBttnPrefab;
 
     private void Awake() {
-        totalOrderCount = 1;
+        totalOrderCount = 0;
+        ordersCompleted = 0;
         if (singleton == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -68,7 +69,7 @@ public class OrderManager : MonoBehaviour
         scoreManager = GameObject.Find("ScoreManager");
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "OrderScene") {
-            takeOrderBtn = GameObject.Find("Take Order").GetComponent<Button>();
+            //takeOrderBtn = GameObject.Find("Take Order").GetComponent<Button>(); // Added
             CheckDrinks();
         }
         ReloadOrderText();
@@ -80,13 +81,14 @@ public class OrderManager : MonoBehaviour
     }
 
 
-    public void AddOrder(Order newOrder) {
+    public void AddOrder() {
+        totalOrderCount += 1;
+        Order newOrder = new Order(totalOrderCount); // Added
         orderList.Add(newOrder);
         orderTimers.Add(0);
         currOrder = newOrder;
         ReloadOrderText();
         AddOrderButton(newOrder);
-        totalOrderCount += 1;
     }
 
      // Adds new order button to the UI
@@ -126,7 +128,7 @@ public class OrderManager : MonoBehaviour
             for (int j = 0; j < drinksOnOrderScene.Count; j++) {
                 Drink currDrink = drinksOnOrderScene[j];
                 if (cOrder.equalsDrink(currDrink)) {
-                     takeOrderBtn.image.sprite = orderDoneSprite;
+                     // takeOrderBtn.image.sprite = orderDoneSprite; //Added
                      int orderIndex = orderList.IndexOf(cOrder);
                      sm.addScore(cOrder, currDrink, orderTimers[orderIndex]);
                      ordersCompleted += 1;
