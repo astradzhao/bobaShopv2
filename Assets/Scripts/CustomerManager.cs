@@ -11,7 +11,9 @@ public class CustomerManager : MonoBehaviour
     public static CustomerManager singleton;
 
     public static List<GameObject> customerList;
+    
     public GameObject customerPrefab;
+
     public Canvas canvas;
 
     // The time between customer spawns
@@ -31,6 +33,8 @@ public class CustomerManager : MonoBehaviour
 
     private GameObject orderManager;
     private OrderManager orderManagerScript;
+
+    private string sceneName;
 
 
     private void Awake() {
@@ -55,11 +59,13 @@ public class CustomerManager : MonoBehaviour
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        string sceneName = SceneManager.GetActiveScene().name;
+        sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "OrderScene") {
             canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
             orderManager = GameObject.Find("OrderManager");
             orderManagerScript = orderManager.GetComponent<OrderManager>();
+            ReloadCustomers();
+
 
             // Calculating Positions
             RectTransform r = canvas.GetComponent<RectTransform>();
@@ -80,7 +86,12 @@ public class CustomerManager : MonoBehaviour
     }
 
     private void Update() {
-        if (CanAddCustomer()) {
+        Debug.Log("Last customer spawned: " + lastCustomerSpawned.ToString());
+        Debug.Log("Customer at 1?: " + customerAtPos1);
+        Debug.Log("Customer at 2?: " + customerAtPos2);
+
+        
+        if (sceneName == "OrderScene" && CanAddCustomer()) {
             if (!customerAtPos1) {
                 AddCustomer(orderingPos1);
                 customerAtPos1 = true;
@@ -89,7 +100,18 @@ public class CustomerManager : MonoBehaviour
                customerAtPos2 = true;
             }
             lastCustomerSpawned = Time.time;
+        } else if (CanAddCustomer()) {
+            if (!customerAtPos1) {
+                customerAtPos1 = true;
+            } else {
+               customerAtPos2 = true;
+            }
+            lastCustomerSpawned = Time.time;
+        } else {
+            // Do nothing
         }
+
+
     }
 
     private bool CanAddCustomer() {
@@ -110,6 +132,8 @@ public class CustomerManager : MonoBehaviour
         Button newCustomerBttn = newCustomerBttnObj.GetComponent<Button>();
         newCustomerBttn.onClick.AddListener(orderManagerScript.AddOrder);
         newCustomerBttn.onClick.AddListener(delegate{CustomerDisappear(newCustomer, newCustomerBttnObj, pos);});
+
+
     }
 
     IEnumerator FadeInCustomer(CanvasRenderer crCustomer, CanvasRenderer crCustomerBttn) {
@@ -149,5 +173,10 @@ public class CustomerManager : MonoBehaviour
         // Set customerPos to false
         // Add the customer to List of customer-order links
 
+    }
+
+
+    private void ReloadCustomers() {
+        
     }
 }
