@@ -12,6 +12,7 @@ public class Drink
     private string toppingsText;
     private int sealingScore;
     private int mixingScore;
+    private int milk;
     #endregion 
 
     #region Instantiation
@@ -23,6 +24,7 @@ public class Drink
         this.toppingsText = "";
         this.sealingScore = 0;
         this.mixingScore = 0;
+        this.milk = 0;
     }
     #endregion
     
@@ -52,6 +54,10 @@ public class Drink
             this.toppingsText += ", " + t;
         }
     }
+
+    public void addMilk() {
+        this.milk = 1;
+    }
     #endregion
 
     #region GetFunctions
@@ -73,6 +79,13 @@ public class Drink
     public string getTopText() {
         return this.toppingsText;
     }
+
+    public string getMilkText() {
+        if (this.milk == 0) {
+            return "";
+        }
+        return "Milk";
+    }
     #endregion
 
     public override bool Equals(object obj)
@@ -88,12 +101,12 @@ public class Drink
     {
         int hash = 0;
         for (int i = 0; i < this.toppings.Count; i++) {
-            hash += i + this.toppings[i].GetHashCode() * (i + 11);
+            hash += this.toppings[i].GetHashCode() * 11;
         }
         for (int i = 0; i < this.ingredients.Count; i++) {
-            hash += i * 2 + this.ingredients[i].GetHashCode() * (i + 17);
+            hash += this.ingredients[i].GetHashCode() * 17;
         }
-        return hash + this.teaBase.GetHashCode() * 13;
+        return hash + this.teaBase.GetHashCode() * 13 + this.milk * 71;
     }
 
     public void seal(int s) {

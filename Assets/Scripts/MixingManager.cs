@@ -88,7 +88,7 @@ public class MixingManager : MonoBehaviour
         string stationString = "MixingScene" + n;
         if (dm.getStationDrinks(stationString).Count != 0) {
             Drink currentDrink = dm.getStationDrinks(stationString)[0];
-            int score = (int) (1000 - ((Mathf.Abs(mixers[m] - 25)) / 25 * 1000));
+            int score = (int) (1000 - ((Mathf.Abs(mixers[m] - 50)) / 50 * 1000));
             currentDrink.mix(score);
         }
     }

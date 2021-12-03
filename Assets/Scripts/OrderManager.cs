@@ -143,6 +143,8 @@ public class OrderManager : MonoBehaviour
         orderNumTxt.text = "Order #";
         Text teaBaseTxt = GameObject.Find("TeaBaseListUI").GetComponent<Text>();
         teaBaseTxt.text = "";
+        Text milkTxt = GameObject.Find("MilkUI").GetComponent<Text>();
+        milkTxt.text = "Milk: ";
         Text ingredientsTxt = GameObject.Find("IngredientsListUI").GetComponent<Text>();
         ingredientsTxt.text = "";
         Text toppingsTxt = GameObject.Find("ToppingsListUI").GetComponent<Text>();
@@ -153,7 +155,13 @@ public class OrderManager : MonoBehaviour
         if (currOrder != null) {
             orderNumTxt.text += currOrder.GetOrderNum().ToString();
             teaBaseTxt.text = "- " + currOrder.GetTeaBase();
-        
+            if (currOrder.hasMilk()) {
+                milkTxt.text += "Yes";
+            }
+            else {
+                milkTxt.text += "No";
+            }
+            
             foreach (string ing in currOrder.GetIngredients()) {
                 ingredientsTxt.text += "- " + ing + "\n" ;
             }

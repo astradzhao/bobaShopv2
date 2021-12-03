@@ -35,6 +35,10 @@ public class GameManager : MonoBehaviour
         DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
         dm.changeTeaBase(s);
     }
+    public void addMilk() {
+        DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
+        dm.addMilk();
+    }
     public void moveDrinkTo(string s) {
         if (s == "IngredientsScene") {
             DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
@@ -44,17 +48,21 @@ public class GameManager : MonoBehaviour
             DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
             dm.IngToMix();
         }
-        else if (s == "SealingScene1") {
+        else if (s == "ToppingsScene1") {
             DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
-            dm.Mix1ToSeal();
+            dm.Mix1ToTop();
         }
-        else if (s == "SealingScene2") {
+        else if (s == "ToppingsScene2") {
             DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
-            dm.Mix2ToSeal();
+            dm.Mix2ToTop();
         }
-        else if (s == "SealingScene3") {
+        else if (s == "ToppingsScene3") {
             DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
-            dm.Mix3ToSeal();
+            dm.Mix3ToTop();
+        }
+        else if (s == "SealingScene") {
+            DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
+            dm.TopToSeal();
         }
         else if (s == "OrderScene") {
             DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
