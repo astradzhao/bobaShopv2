@@ -14,6 +14,7 @@ public class OrderManager : MonoBehaviour
     //public static Dictionary<int, GameObject> orderBttnList;
     public GameObject drinkManager;
     public GameObject scoreManager;
+    public GameObject customerManager;
     public static OrderManager singleton;
     public Sprite orderDoneSprite;
     private List<Drink> drinksOnOrderScene;
@@ -70,6 +71,7 @@ public class OrderManager : MonoBehaviour
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "OrderScene") {
             //takeOrderBtn = GameObject.Find("Take Order").GetComponent<Button>(); // Added
+            customerManager = GameObject.Find("CustomerManager");
             CheckDrinks();
         }
         ReloadOrderText();
@@ -135,6 +137,10 @@ public class OrderManager : MonoBehaviour
                      dm.RemoveFromOrder(currDrink);
                      this.RemoveOrder(cOrder);
                      this.ReloadOrderText();
+
+                     // Update Customer's position
+                     CustomerManager custManagerScript = customerManager.GetComponent<CustomerManager>();
+                     custManagerScript.CheckCustomers(cOrder);
                 }
             }
         }

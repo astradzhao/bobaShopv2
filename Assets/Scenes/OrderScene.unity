@@ -190,7 +190,6 @@ GameObject:
   m_Component:
   - component: {fileID: 322958780}
   - component: {fileID: 322958779}
-  - component: {fileID: 322958781}
   m_Layer: 0
   m_Name: CustomerManager
   m_TagString: Untagged
@@ -210,9 +209,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ddbd7a0eecf194fbd41e03abad2d22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frogSprites:
+  - {fileID: 21300000, guid: 4ac9fe5ffdd77d144adb2f0651282597, type: 3}
+  - {fileID: 21300000, guid: 4df5fe159c55c3848a2b381adac00c09, type: 3}
+  - {fileID: 21300000, guid: f16f6c95a9d2a1244ab6b54c7159a776, type: 3}
+  bunnySprites:
+  - {fileID: 21300000, guid: 1df1bc7b34b0dbf4c9562dcc646f2fca, type: 3}
+  - {fileID: 21300000, guid: 78ce9402dd97dff449e71cf88a886916, type: 3}
+  - {fileID: 21300000, guid: 7dd8cbc864f124043bc5f132a85ad74a, type: 3}
+  kittySprites:
+  - {fileID: 21300000, guid: ea7e38107a352ed4ab27967ce718f32b, type: 3}
+  - {fileID: 21300000, guid: 5b267461cc2406242af5e436fe1cf471, type: 3}
+  - {fileID: 21300000, guid: 0da4b48e49976b942a224c3394d49f8e, type: 3}
+  PandaSprites:
+  - {fileID: 21300000, guid: 601f9875fca43ea47a43744ace3cc2c1, type: 3}
+  - {fileID: 21300000, guid: ff163c279d78b9b49b4b01f857b11ddb, type: 3}
+  - {fileID: 21300000, guid: b87bc91a1c555204998e1722f574ae7d, type: 3}
+  orderStatuses:
+  - {fileID: 21300000, guid: 787a69f6a92e3b349a54e4576957d175, type: 3}
+  - {fileID: 21300000, guid: 937f07d863af42d4f835b7cca96c1398, type: 3}
+  - {fileID: 21300000, guid: 0dca6480c575d6c4697063e5ff8275e4, type: 3}
   customerPrefab: {fileID: 6551441139534523614, guid: 176f3aad0a22c964c85eba7d2fda18b9, type: 3}
   canvas: {fileID: 0}
-  customerSpawnRate: 5
+  customerSpawnRate: 10
 --- !u!4 &322958780
 Transform:
   m_ObjectHideFlags: 0
@@ -227,38 +246,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &322958781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 322958778}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dab5be982b7af0f4f9d64955b96e622e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allCustomersIdle:
-  - {fileID: 21300000, guid: 4ac9fe5ffdd77d144adb2f0651282597, type: 3}
-  - {fileID: 21300000, guid: 1df1bc7b34b0dbf4c9562dcc646f2fca, type: 3}
-  - {fileID: 21300000, guid: ea7e38107a352ed4ab27967ce718f32b, type: 3}
-  - {fileID: 21300000, guid: 601f9875fca43ea47a43744ace3cc2c1, type: 3}
-  allCustomersAngry:
-  - {fileID: 21300000, guid: f16f6c95a9d2a1244ab6b54c7159a776, type: 3}
-  - {fileID: 21300000, guid: 7dd8cbc864f124043bc5f132a85ad74a, type: 3}
-  - {fileID: 21300000, guid: 0da4b48e49976b942a224c3394d49f8e, type: 3}
-  - {fileID: 21300000, guid: b87bc91a1c555204998e1722f574ae7d, type: 3}
-  allCustomersOrderDone:
-  - {fileID: 21300000, guid: 4df5fe159c55c3848a2b381adac00c09, type: 3}
-  - {fileID: 21300000, guid: 78ce9402dd97dff449e71cf88a886916, type: 3}
-  - {fileID: 21300000, guid: 5b267461cc2406242af5e436fe1cf471, type: 3}
-  - {fileID: 21300000, guid: ff163c279d78b9b49b4b01f857b11ddb, type: 3}
-  allOrderStatuses:
-  - {fileID: 21300000, guid: 787a69f6a92e3b349a54e4576957d175, type: 3}
-  - {fileID: 21300000, guid: 937f07d863af42d4f835b7cca96c1398, type: 3}
-  - {fileID: 21300000, guid: 0dca6480c575d6c4697063e5ff8275e4, type: 3}
-  customerPrefab: {fileID: 6551441139534523614, guid: 176f3aad0a22c964c85eba7d2fda18b9, type: 3}
 --- !u!1001 &379778504
 PrefabInstance:
   m_ObjectHideFlags: 0
