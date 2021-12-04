@@ -73,7 +73,8 @@ public class DrinkManager : MonoBehaviour
                     RectTransform dR = currObject.GetComponent<RectTransform>();
                     dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
                     currObject.transform.SetParent(canvas.transform);
-                    reloadText(d.drink, currObject);
+                    //reloadText(d.drink, currObject);
+                    reloadImage(d.drink, currObject);
                 }
 
                 if (drinks["MixingScene2"].Count != 0) {
@@ -92,7 +93,8 @@ public class DrinkManager : MonoBehaviour
                     RectTransform dR = currObject.GetComponent<RectTransform>();
                     dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
                     currObject.transform.SetParent(canvas.transform);
-                    reloadText(d.drink, currObject);
+                    //reloadText(d.drink, currObject);
+                    reloadImage(d.drink, currObject);
                 }
 
                 if (drinks["MixingScene3"].Count != 0) {
@@ -111,7 +113,8 @@ public class DrinkManager : MonoBehaviour
                     RectTransform dR = currObject.GetComponent<RectTransform>();
                     dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
                     currObject.transform.SetParent(canvas.transform);
-                    reloadText(d.drink, currObject);
+                    //reloadText(d.drink, currObject);
+                    reloadImage(d.drink, currObject);
                 }
             }
         }
@@ -135,21 +138,38 @@ public class DrinkManager : MonoBehaviour
                 RectTransform dR = currObject.GetComponent<RectTransform>();
                 dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
                 currObject.transform.SetParent(canvas.transform);
-                reloadText(d.drink, currObject);
+                //reloadText(d.drink, currObject);
+                reloadImage(d.drink, currObject);
             }
         }
         
     }
 
-    public void reloadText(Drink d, GameObject o) {
-        Text teaBaseTxt = o.transform.Find("BaseText").GetComponent<Text>();
-        if (d.getBase() == null) {
-            teaBaseTxt.text = "";
+    public void reloadImage(Drink d, GameObject o) {
+        if (d.getBase() != null) {
+            Sprite thisImage = Resources.Load<Sprite>(d.getBase() + " Tea");
+            currObject.GetComponent<Image>().sprite = thisImage;
         }
-        else {
-            teaBaseTxt.text = d.getBase();
+        
+        if (d.hasMilk()) {
+            GameObject milk = GameObject.Find("Milk Img");
+            milk.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         }
 
+        List<string> ingredients = d.getIngredients();
+        for (int i = 0; i < ingredients.Count; i++) {
+            GameObject ing = GameObject.Find(ingredients[i] + " Img");
+            ing.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        }
+
+        List<string> toppings = d.getToppings();
+        for (int i = 0; i < toppings.Count; i++) {
+            GameObject ing = GameObject.Find(toppings[i] + " Img");
+            ing.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        }
+    }
+
+    public void reloadText(Drink d, GameObject o) {
         Text milkTxt = o.transform.Find("MilkText").GetComponent<Text>();
         milkTxt.text = d.getMilkText();
 
@@ -179,11 +199,13 @@ public class DrinkManager : MonoBehaviour
             DrinkComponent d = myDrink.GetComponent<DrinkComponent>();
             if (d != null) {
                 d.drink.addIngredient(i);
-                AddIngredientText(i, d.drink);
+                //AddIngredientText(i, d.drink);
+                AddIngredientImage(i, d.drink);
             }
         }
         else {
-            AddIngredientText(i, null);
+            //AddIngredientText(i, null);
+            AddIngredientImage(i, null);
         }
     }
 
@@ -192,11 +214,13 @@ public class DrinkManager : MonoBehaviour
             DrinkComponent d = myDrink.GetComponent<DrinkComponent>();
             if (d != null) {
                 d.drink.addToppings(t);
-                AddToppingText(t, d.drink);
+                //AddToppingText(t, d.drink);
+                AddToppingImage(t, d.drink);
             }
         }
         else {
-            AddToppingText(t, null);
+            //AddToppingText(t, null);
+            AddToppingImage(t, null);
         }
     }
 
@@ -205,7 +229,7 @@ public class DrinkManager : MonoBehaviour
             DrinkComponent d = myDrink.GetComponent<DrinkComponent>();
             d.drink.changeTeaBase(b);
         }
-        SetTeaBaseText(b);
+        SetTeaBaseImage(b);
     }
 
     public void addMilk(){
@@ -213,24 +237,30 @@ public class DrinkManager : MonoBehaviour
             DrinkComponent d = myDrink.GetComponent<DrinkComponent>();
             if (d != null) {
                 d.drink.addMilk();
-                
             }
         }
-        AddMilkText();
+        //AddMilkText();
+        AddMilkImg();
     }
 
-    public void SetTeaBaseText(string b) {
-        Text teaBaseTxt = GameObject.Find("BaseText").GetComponent<Text>();
-        if (teaBaseTxt != null) {
-            if (teaBaseTxt.text == "") {
-            teaBaseTxt.text = b;
-            }
-        }
+    public void SetTeaBaseImage(string b) {
+        Sprite thisImage = Resources.Load<Sprite>(b + " Tea");
+        currObject.GetComponent<Image>().sprite = thisImage;
     }
 
     public void AddMilkText() {
         Text milkTxt = GameObject.Find("MilkText").GetComponent<Text>();
         milkTxt.text = "Milk";
+    }
+
+    public void AddIngredientImage(string b, Drink d) {
+        GameObject ing = GameObject.Find(b + " Img");
+        ing.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+    }
+
+    public void AddMilkImg() {
+        GameObject milk = GameObject.Find("Milk Img");
+        milk.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
     }
 
     public void AddIngredientText(string b, Drink d) {
@@ -248,6 +278,11 @@ public class DrinkManager : MonoBehaviour
         else {
             ingredientsTxt.text = d.getIngText();
         }
+    }
+
+    public void AddToppingImage(string b, Drink d) {
+        GameObject top = GameObject.Find(b + " Img");
+        top.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
     }
 
     public void AddToppingText(string b, Drink d) {

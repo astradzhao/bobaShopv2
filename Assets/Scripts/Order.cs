@@ -6,10 +6,9 @@ public class Order
 {
     #region Private Class Variables
     private static List<string> allTeaBases = new List<string>{"Oolong", "Green", "Black", "Rose", "Herbal", "Thai"};
-    private static List<string> allIngredients = new List<string>{"Mango", "Taro", "Strawberry", "Matcha", "Honeydew", "Brown Sugar",
-        "Ginger", "Lychee"};
-    private static List<string> allToppings = new List<string>{"Lychee Jelly", "Tapioca Pearls", "Strawberry Stars", "Mango Pudding", "Crystal Boba", "Pineapple Jelly",
-        "Aloe", "Red Bean", "Coconut Jelly", "Custard Pudding"};
+    private static List<string> allIngredients = new List<string>{"Mango", "Taro", "Strawberry", "Matcha", "Brown Sugar", "Lychee"};
+    private static List<string> allToppings = new List<string>{"Lychee Jelly", "Tapioca Pearls", "Strawberry Stars", "Crystal Boba", "Pineapple Jelly",
+        "Red Bean", "Coconut Jelly", "Custard Pudding"};
     #endregion
 
     #region Private Instance Variables

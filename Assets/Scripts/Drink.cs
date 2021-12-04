@@ -30,9 +30,7 @@ public class Drink
     
     #region GameFunctions
     public void changeTeaBase(string b) {
-        if(this.teaBase == null) {
-            this.teaBase = b;
-        }
+        this.teaBase = b;
     }
 
     public void addIngredient(string i) {
@@ -63,6 +61,10 @@ public class Drink
     #region GetFunctions
     public string getBase() {
         return this.teaBase;
+    }
+
+    public bool hasMilk() {
+        return this.milk == 1;
     }
     public List<string> getIngredients() {
         return this.ingredients;
