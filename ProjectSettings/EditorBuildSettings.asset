@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
+    path: 
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/TeaBaseScene.unity
     guid: d2bcfe56ebe94824593ac5ad6a21a319
   - enabled: 1
-    path: Assets/Scenes/OrderScene.unity
+    path: Assets/Scenes/StartScene.unity
     guid: e1708445b929ed64aa536f579633eefd
   - enabled: 1
     path: Assets/Scenes/IngredientsScene.unity
@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ToppingsScene.unity
     guid: 5db912c9b8552364bbb1c663fc44694a
+  - enabled: 1
+    path: Assets/Scenes/OrderScene.unity
+    guid: de4952f4ce7c54fa59a7e31963918925
   m_configObjects: {}

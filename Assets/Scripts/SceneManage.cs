@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
  
 public class SceneManage : MonoBehaviour
 {
+    public void StartScene() 
+    {
+        SceneManager.LoadScene("StartScene");
+    }
     public void OrderScene()
     {
         SceneManager.LoadScene("OrderScene");
