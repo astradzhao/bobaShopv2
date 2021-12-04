@@ -7,13 +7,14 @@ using System;
 
 public class OrderManager : MonoBehaviour
 {
-    public Button takeOrderBtn;
+    //public Button takeOrderBtn; // Added
     public Button myOrdersBtn;
     public static List<Order> orderList;
     private static List<float> orderTimers;
     //public static Dictionary<int, GameObject> orderBttnList;
     public GameObject drinkManager;
     public GameObject scoreManager;
+    public GameObject customerManager;
     public static OrderManager singleton;
     public Sprite orderDoneSprite;
     private List<Drink> drinksOnOrderScene;
@@ -22,13 +23,13 @@ public class OrderManager : MonoBehaviour
     public int totalOrderCount;
     public static int ordersCompleted;
 
-
     public GameObject buttonScrollList;
     public Transform buttonListContent;
     public GameObject newOrderBttnPrefab;
 
     private void Awake() {
-        totalOrderCount = 1;
+        totalOrderCount = 0;
+        ordersCompleted = 0;
         if (singleton == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -69,7 +70,8 @@ public class OrderManager : MonoBehaviour
         scoreManager = GameObject.Find("ScoreManager");
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "OrderScene") {
-            takeOrderBtn = GameObject.Find("Take Order").GetComponent<Button>();
+            //takeOrderBtn = GameObject.Find("Take Order").GetComponent<Button>(); // Added
+            customerManager = GameObject.Find("CustomerManager");
             CheckDrinks();
         }
         ReloadOrderText();
@@ -81,13 +83,14 @@ public class OrderManager : MonoBehaviour
     }
 
 
-    public void AddOrder(Order newOrder) {
+    public void AddOrder() {
+        totalOrderCount += 1;
+        Order newOrder = new Order(totalOrderCount); // Added
         orderList.Add(newOrder);
         orderTimers.Add(0);
         currOrder = newOrder;
         ReloadOrderText();
         AddOrderButton(newOrder);
-        totalOrderCount += 1;
     }
 
      // Adds new order button to the UI
@@ -127,13 +130,17 @@ public class OrderManager : MonoBehaviour
             for (int j = 0; j < drinksOnOrderScene.Count; j++) {
                 Drink currDrink = drinksOnOrderScene[j];
                 if (cOrder.equalsDrink(currDrink)) {
-                     takeOrderBtn.image.sprite = orderDoneSprite;
+                     // takeOrderBtn.image.sprite = orderDoneSprite; //Added
                      int orderIndex = orderList.IndexOf(cOrder);
                      sm.addScore(cOrder, currDrink, orderTimers[orderIndex]);
                      ordersCompleted += 1;
                      dm.RemoveFromOrder(currDrink);
                      this.RemoveOrder(cOrder);
                      this.ReloadOrderText();
+
+                     // Update Customer's position
+                     CustomerManager custManagerScript = customerManager.GetComponent<CustomerManager>();
+                     custManagerScript.CheckCustomers(cOrder);
                 }
             }
         }
