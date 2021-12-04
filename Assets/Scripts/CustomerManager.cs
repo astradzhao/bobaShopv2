@@ -10,6 +10,9 @@ public class CustomerManager : MonoBehaviour
 
     public static CustomerManager singleton;
 
+    public Sprite backgroundDoorClosed;
+    public Sprite backgroundDoorOpened;
+
     // All Different sprites for customers
     public List<Sprite> frogSprites = new List<Sprite>();
     public List<Sprite> bunnySprites = new List<Sprite>();
@@ -162,10 +165,12 @@ public class CustomerManager : MonoBehaviour
         GameObject newCustomerBttnObj = newCustomer.transform.GetChild(0).gameObject;
 
         newCustomer.transform.SetParent(canvas.transform);
+        newCustomer.transform.SetSiblingIndex(1);
         newCustomer.transform.localScale = new Vector3(1, 1, 1);
 
         CanvasRenderer crCustomer = newCustomer.GetComponent<CanvasRenderer>();
         CanvasRenderer crCustomerBttn = newCustomerBttnObj.GetComponent<CanvasRenderer>();
+
         if (sceneName == "OrderScene") {
             StartCoroutine(FadeInCustomer(crCustomer, crCustomerBttn));
         }
@@ -260,6 +265,7 @@ public class CustomerManager : MonoBehaviour
         GameObject newCustomer = Instantiate(customerPrefab, customer.GetCustPos(), Quaternion.identity);
         newCustomer.GetComponent<Image>().overrideSprite = customer.GetCurrSprite();
         newCustomer.transform.SetParent(canvas.transform);
+        newCustomer.transform.SetSiblingIndex(1);
         newCustomer.transform.localScale = new Vector3(1, 1, 1);
 
         if (customer.GetCustPos() == orderingPos1) {
