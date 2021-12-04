@@ -14,7 +14,6 @@ public class Customer
     private Sprite currSprite;
     private Sprite currOrderSprite;
 
-
     public Customer(List<Sprite> customerSprites, List<Sprite> orderStatuses, Vector3 pos, int orderNum) {
         this.customerSprites = customerSprites;
         this.orderStatuses = orderStatuses;

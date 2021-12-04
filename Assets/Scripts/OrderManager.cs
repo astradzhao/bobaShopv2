@@ -14,7 +14,6 @@ public class OrderManager : MonoBehaviour
     public GameObject scoreManager;
     public GameObject customerManager;
     public static OrderManager singleton;
-    public Sprite orderDoneSprite;
     private List<Drink> drinksOnOrderScene;
     private static Order currOrder;
     private static bool myOrdersTabOpen;

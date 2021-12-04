@@ -297,7 +297,9 @@ public class CustomerManager : MonoBehaviour
         }
 
         GameObject newCustomerBttnObj = newCustomer.transform.GetChild(0).gameObject;
-
+        if (customer.GetCustPos() == orderDonePos) {
+            newCustomerBttnObj.GetComponent<Image>().overrideSprite = orderStatuses[2];
+        }
         CanvasRenderer crCustomer = newCustomer.GetComponent<CanvasRenderer>();
         CanvasRenderer crCustomerBttn = newCustomerBttnObj.GetComponent<CanvasRenderer>();
 
