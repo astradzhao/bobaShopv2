@@ -21,8 +21,7 @@ public class OrderManager : MonoBehaviour
     private static Order currOrder;
     private static bool myOrdersTabOpen;
     public int totalOrderCount;
-    public int ordersCompleted;
-
+    public static int ordersCompleted;
 
     public GameObject buttonScrollList;
     public Transform buttonListContent;
@@ -35,6 +34,7 @@ public class OrderManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             singleton = this;
+            ordersCompleted = 0;
             orderList = new List<Order>();
             // orderBttnList = new Dictionary<int, GameObject>();
             orderTimers = new List<float>();

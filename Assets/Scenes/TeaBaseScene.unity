@@ -2436,6 +2436,28 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1053726990, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 225.3136
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053726990, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 31.1819
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053726990, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 400.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053726990, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -267
+      objectReference: {fileID: 0}
+    - target: {fileID: 1053726991, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_Text
+      value: 'Orders Completed: 0
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 1315347426, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
       propertyPath: m_RootOrder
       value: 3
