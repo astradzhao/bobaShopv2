@@ -7,11 +7,9 @@ using System;
 
 public class OrderManager : MonoBehaviour
 {
-    //public Button takeOrderBtn; // Added
     public Button myOrdersBtn;
     public static List<Order> orderList;
     private static List<float> orderTimers;
-    //public static Dictionary<int, GameObject> orderBttnList;
     public GameObject drinkManager;
     public GameObject scoreManager;
     public GameObject customerManager;
@@ -36,7 +34,6 @@ public class OrderManager : MonoBehaviour
             singleton = this;
             ordersCompleted = 0;
             orderList = new List<Order>();
-            // orderBttnList = new Dictionary<int, GameObject>();
             orderTimers = new List<float>();
             currOrder = null;
         }
@@ -70,7 +67,6 @@ public class OrderManager : MonoBehaviour
         scoreManager = GameObject.Find("ScoreManager");
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "OrderScene") {
-            //takeOrderBtn = GameObject.Find("Take Order").GetComponent<Button>(); // Added
             customerManager = GameObject.Find("CustomerManager");
             CheckDrinks();
         }
@@ -99,18 +95,12 @@ public class OrderManager : MonoBehaviour
         newButton.transform.SetParent(buttonListContent, false);
         Text newButtonText = newButton.transform.GetChild(0).gameObject.GetComponent<Text>();
         newButtonText.text = order.GetOrderNum().ToString();
-        //orderBttnList.Add(totalOrderCount, newButton);
     }
 
     public void RemoveOrder(Order completedOrder) {
         int orderIndex = orderList.IndexOf(completedOrder);
         orderList.Remove(completedOrder);
         orderTimers.RemoveAt(orderIndex);
-
-        // Searches for the corresponding order# button of the completed order and deletes it from UI.
-        //GameObject completedOrderBttn = orderBttnList[completedOrder.GetOrderNum()];
-        //Destroy(completedOrderBttn);
-        //orderBttnList.Remove(completedOrder.GetOrderNum());
 
         if (orderList.Count <= 0) {
             currOrder = null;
@@ -130,7 +120,6 @@ public class OrderManager : MonoBehaviour
             for (int j = 0; j < drinksOnOrderScene.Count; j++) {
                 Drink currDrink = drinksOnOrderScene[j];
                 if (cOrder.equalsDrink(currDrink)) {
-                     // takeOrderBtn.image.sprite = orderDoneSprite; //Added
                      int orderIndex = orderList.IndexOf(cOrder);
                      sm.addScore(cOrder, currDrink, orderTimers[orderIndex]);
                      ordersCompleted += 1;

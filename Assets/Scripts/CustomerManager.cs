@@ -12,6 +12,9 @@ public class CustomerManager : MonoBehaviour
 
     public Sprite backgroundDoorClosed;
     public Sprite backgroundDoorOpened;
+    public GameObject sceneBackground;
+
+    public AudioSource audiosource;
 
     // All Different sprites for customers
     public List<Sprite> frogSprites = new List<Sprite>();
@@ -61,6 +64,8 @@ public class CustomerManager : MonoBehaviour
             customerAtPos2 = false;
             customerAtPos3 = false;
             customerAtOrderDone = false;
+
+            audiosource = this.GetComponent<AudioSource>();
         }
         else if (singleton != this)
         {
@@ -77,6 +82,8 @@ public class CustomerManager : MonoBehaviour
         if (sceneName == "OrderScene") {
             canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
             orderManager = GameObject.Find("OrderManager");
+            sceneBackground = GameObject.Find("SceneBackground");
+            sceneBackground.GetComponent<Image>().overrideSprite = backgroundDoorClosed;
             orderManagerScript = orderManager.GetComponent<OrderManager>();
             ReloadCustomers();
 
@@ -101,6 +108,9 @@ public class CustomerManager : MonoBehaviour
 
     private void Update() {
         if (sceneName == "OrderScene" && CanAddCustomer()) {
+            // Play door opening
+            audiosource.Play();
+
             if (!customerAtPos1) {
                 AddCustomer(orderingPos1);
                 customerAtPos1 = true;
@@ -113,6 +123,9 @@ public class CustomerManager : MonoBehaviour
             }
             lastCustomerSpawned = Time.time;
         } else if (CanAddCustomer()) {
+            // Play door opening
+            audiosource.Play();
+    
             if (!customerAtPos1) {
                 Customer customer = new Customer(ChooseCustomer(), orderStatuses, orderingPos1, orderManagerScript.totalOrderCount + 1);
                 customerAtPos1 = true;
@@ -172,6 +185,7 @@ public class CustomerManager : MonoBehaviour
         CanvasRenderer crCustomerBttn = newCustomerBttnObj.GetComponent<CanvasRenderer>();
 
         if (sceneName == "OrderScene") {
+
             StartCoroutine(FadeInCustomer(crCustomer, crCustomerBttn));
         }
 
@@ -182,7 +196,8 @@ public class CustomerManager : MonoBehaviour
 
     // Fades Customer in
     IEnumerator FadeInCustomer(CanvasRenderer crCustomer, CanvasRenderer crCustomerBttn) {
-        if (crCustomer != null && crCustomerBttn != null) {
+        if (crCustomer != null && crCustomerBttn != null && sceneBackground != null) {
+            sceneBackground.GetComponent<Image>().overrideSprite = backgroundDoorOpened;
             crCustomer.SetAlpha(0f);
             crCustomerBttn.SetAlpha(0f);
             for (float alpha = 0f; alpha <= 2f; alpha += 0.1f) {
@@ -191,6 +206,9 @@ public class CustomerManager : MonoBehaviour
                 crCustomerBttn.SetAlpha(alpha);
                 }
                 yield return new WaitForSeconds(0.1f);
+            }
+            if (sceneBackground != null) {
+                sceneBackground.GetComponent<Image>().overrideSprite = backgroundDoorClosed;
             }
         }
     }
