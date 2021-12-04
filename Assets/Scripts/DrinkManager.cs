@@ -145,27 +145,40 @@ public class DrinkManager : MonoBehaviour
         
     }
 
+    public GameObject GetChildWithName(GameObject obj, string name) {
+     Transform trans = obj.transform;
+     Transform childTrans = trans. Find(name);
+     if (childTrans != null) {
+         return childTrans.gameObject;
+     } else {
+         return null;
+     }
+ }
     public void reloadImage(Drink d, GameObject o) {
+        if (o == null) {
+            return;
+        }
+
         if (d.getBase() != null) {
             Sprite thisImage = Resources.Load<Sprite>(d.getBase() + " Tea");
             currObject.GetComponent<Image>().sprite = thisImage;
         }
         
         if (d.hasMilk()) {
-            GameObject milk = GameObject.Find("Milk Img");
-            milk.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            RectTransform milk = o.transform.Find("Milk Img").GetComponent<RectTransform>();
+            milk.localScale = new Vector3(1, 1, 1);
         }
 
         List<string> ingredients = d.getIngredients();
         for (int i = 0; i < ingredients.Count; i++) {
-            GameObject ing = GameObject.Find(ingredients[i] + " Img");
+            RectTransform ing = o.transform.Find("IngredientsImg").Find(ingredients[i] + " Img").GetComponent<RectTransform>();
             ing.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         }
 
         List<string> toppings = d.getToppings();
         for (int i = 0; i < toppings.Count; i++) {
-            GameObject ing = GameObject.Find(toppings[i] + " Img");
-            ing.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            RectTransform top = o.transform.Find("ToppingsImg").Find(toppings[i] + " Img").GetComponent<RectTransform>();
+            top.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
         }
     }
 
