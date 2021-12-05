@@ -12,6 +12,10 @@ public class DrinkManager : MonoBehaviour
 
     private GameObject drinkPos;
 
+    private GameObject mixDrinkPos1;
+    private GameObject mixDrinkPos2;
+    private GameObject mixDrinkPos3;
+
     public Canvas canvas;
     private static Dictionary<string, List<Drink>> drinks;
 
@@ -60,63 +64,78 @@ public class DrinkManager : MonoBehaviour
                 return;
             }
             else {
+                mixDrinkPos1 = GameObject.Find("DrinkPosition1");
+                mixDrinkPos2 = GameObject.Find("DrinkPosition2");
+                mixDrinkPos3 = GameObject.Find("DrinkPosition3");
                 if (drinks["MixingScene1"].Count != 0) {
                     Drink sceneD = drinks["MixingScene1"][0];
                     DrinkComponent d = myDrink.GetComponent<DrinkComponent>();
-                    canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+                    //canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
                     d.drink = sceneD;
-                    RectTransform r = canvas.GetComponent<RectTransform>();
-                    CanvasScaler canvasScale = canvas.GetComponent<CanvasScaler>();
-                    float x = r.position.x;
-                    float y = r.position.y;
-                    Vector2 res = canvasScale.referenceResolution;
-                    float h = res.y;
-                    float w = res.x;
-                    currObject = Instantiate(myDrink, new Vector3(x - 7 * w / 5, y - 3 * h / 4, 0), Quaternion.identity);
-                    RectTransform dR = currObject.GetComponent<RectTransform>();
-                    dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
-                    currObject.transform.SetParent(canvas.transform);
+                    // RectTransform r = canvas.GetComponent<RectTransform>();
+                    // CanvasScaler canvasScale = canvas.GetComponent<CanvasScaler>();
+                    // float x = r.position.x;
+                    // float y = r.position.y;
+                    // Vector2 res = canvasScale.referenceResolution;
+                    // float h = res.y;
+                    // float w = res.x;
+                    // currObject = Instantiate(myDrink, new Vector3(x - 7 * w / 5, y - 3 * h / 4, 0), Quaternion.identity);
+                    // RectTransform dR = currObject.GetComponent<RectTransform>();
+                    // dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
+                    // currObject.transform.SetParent(canvas.transform);
                     //reloadText(d.drink, currObject);
+                    currObject = Instantiate(myDrink);
+                    currObject.transform.SetParent(mixDrinkPos1.transform);
+                    Vector3 parentScale = currObject.transform.localScale;
+                    currObject.transform.localScale = new Vector3(1, 1, 1);
                     reloadImage(d.drink, currObject);
                 }
 
                 if (drinks["MixingScene2"].Count != 0) {
                     Drink sceneD = drinks["MixingScene2"][0];
                     DrinkComponent d = myDrink.GetComponent<DrinkComponent>();
-                    canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+                    //canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
                     d.drink = sceneD;
-                    RectTransform r = canvas.GetComponent<RectTransform>();
-                    CanvasScaler canvasScale = canvas.GetComponent<CanvasScaler>();
-                    float x = r.position.x;
-                    float y = r.position.y;
-                    Vector2 res = canvasScale.referenceResolution;
-                    float h = res.y;
-                    float w = res.x;
-                    currObject = Instantiate(myDrink, new Vector3(x - 2 * w / 5, y - 3 * h / 4, 0), Quaternion.identity);
-                    RectTransform dR = currObject.GetComponent<RectTransform>();
-                    dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
-                    currObject.transform.SetParent(canvas.transform);
+                    // RectTransform r = canvas.GetComponent<RectTransform>();
+                    // CanvasScaler canvasScale = canvas.GetComponent<CanvasScaler>();
+                    // float x = r.position.x;
+                    // float y = r.position.y;
+                    // Vector2 res = canvasScale.referenceResolution;
+                    // float h = res.y;
+                    // float w = res.x;
+                    // currObject = Instantiate(myDrink, new Vector3(x - 2 * w / 5, y - 3 * h / 4, 0), Quaternion.identity);
+                    // RectTransform dR = currObject.GetComponent<RectTransform>();
+                    // dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
+                    // currObject.transform.SetParent(canvas.transform);
                     //reloadText(d.drink, currObject);
+                    currObject = Instantiate(myDrink);
+                    currObject.transform.SetParent(mixDrinkPos2.transform);
+                    Vector3 parentScale = currObject.transform.localScale;
+                    currObject.transform.localScale = new Vector3(1, 1, 1);
                     reloadImage(d.drink, currObject);
                 }
 
                 if (drinks["MixingScene3"].Count != 0) {
                     Drink sceneD = drinks["MixingScene3"][0];
                     DrinkComponent d = myDrink.GetComponent<DrinkComponent>();
-                    canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+                    //canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
                     d.drink = sceneD;
-                    RectTransform r = canvas.GetComponent<RectTransform>();
-                    CanvasScaler canvasScale = canvas.GetComponent<CanvasScaler>();
-                    float x = r.position.x;
-                    float y = r.position.y;
-                    Vector2 res = canvasScale.referenceResolution;
-                    float h = res.y;
-                    float w = res.x;
-                    currObject = Instantiate(myDrink, new Vector3(x + 3 * w / 5, y - 3 * h / 4, 0), Quaternion.identity);
-                    RectTransform dR = currObject.GetComponent<RectTransform>();
-                    dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
-                    currObject.transform.SetParent(canvas.transform);
+                    // RectTransform r = canvas.GetComponent<RectTransform>();
+                    // CanvasScaler canvasScale = canvas.GetComponent<CanvasScaler>();
+                    // float x = r.position.x;
+                    // float y = r.position.y;
+                    // Vector2 res = canvasScale.referenceResolution;
+                    // float h = res.y;
+                    // float w = res.x;
+                    // currObject = Instantiate(myDrink, new Vector3(x + 3 * w / 5, y - 3 * h / 4, 0), Quaternion.identity);
+                    // RectTransform dR = currObject.GetComponent<RectTransform>();
+                    // dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
+                    // currObject.transform.SetParent(canvas.transform);
                     //reloadText(d.drink, currObject);
+                    currObject = Instantiate(myDrink);
+                    currObject.transform.SetParent(mixDrinkPos3.transform);
+                    Vector3 parentScale = currObject.transform.localScale;
+                    currObject.transform.localScale = new Vector3(1, 1, 1);
                     reloadImage(d.drink, currObject);
                 }
             }
@@ -129,20 +148,27 @@ public class DrinkManager : MonoBehaviour
                 drinkPos = GameObject.Find("DrinkPosition");
                 Drink sceneD = drinks[sceneName][0];
                 DrinkComponent d = myDrink.GetComponent<DrinkComponent>();
-                canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+                //canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
                 d.drink = sceneD;
-                RectTransform r = canvas.GetComponent<RectTransform>();
-                CanvasScaler canvasScale = canvas.GetComponent<CanvasScaler>();
-                float x = r.position.x;
-                float y = r.position.y;
-                Vector2 res = canvasScale.referenceResolution;
-                float h = res.y;
-                float w = res.x;
-                currObject = Instantiate(myDrink, new Vector3(x - 2 * w / 5, y - 9 * h / 8, 0), Quaternion.identity);
-                RectTransform dR = currObject.GetComponent<RectTransform>();
-                dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
-                currObject.transform.SetParent(canvas.transform);
-                //reloadText(d.drink, currObject);
+                // RectTransform r = canvas.GetComponent<RectTransform>();
+                // CanvasScaler canvasScale = canvas.GetComponent<CanvasScaler>();
+                // float x = r.position.x;
+                // float y = r.position.y;
+                // Vector2 res = canvasScale.referenceResolution;
+                // float h = res.y;
+                // float w = res.x;
+                // currObject = Instantiate(myDrink, new Vector3(x - 2 * w / 5, y - 9 * h / 8, 0), Quaternion.identity);
+                // RectTransform dR = currObject.GetComponent<RectTransform>();
+                // dR.sizeDelta = new Vector3(w / 2, 5 * h / 4, 0);
+                // currObject.transform.SetParent(canvas.transform);
+                
+                currObject = Instantiate(myDrink);
+                currObject.transform.SetParent(drinkPos.transform);
+                Vector3 parentScale = currObject.transform.localScale;
+                currObject.transform.localScale = new Vector3(1, 1, 1);
+
+                //ScaleChildren(currObject, parentScale);
+                //currObject.transform.GetChild(6).gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
                 reloadImage(d.drink, currObject);
             }
         }
@@ -151,7 +177,7 @@ public class DrinkManager : MonoBehaviour
 
     public GameObject GetChildWithName(GameObject obj, string name) {
      Transform trans = obj.transform;
-     Transform childTrans = trans. Find(name);
+     Transform childTrans = trans.Find(name);
      if (childTrans != null) {
          return childTrans.gameObject;
      } else {
@@ -169,20 +195,23 @@ public class DrinkManager : MonoBehaviour
         }
         
         if (d.hasMilk()) {
-            RectTransform milk = o.transform.Find("Milk Img").GetComponent<RectTransform>();
-            milk.localScale = new Vector3(1, 1, 1);
+            Image milk = o.transform.Find("Milk Img").GetComponent<Image>();
+            //milk.localScale = new Vector3(1, 1, 1);
+            milk.enabled = true;
         }
 
         List<string> ingredients = d.getIngredients();
         for (int i = 0; i < ingredients.Count; i++) {
-            RectTransform ing = o.transform.Find("IngredientsImg").Find(ingredients[i] + " Img").GetComponent<RectTransform>();
-            ing.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            Image ing = o.transform.Find(ingredients[i] + " Img").GetComponent<Image>();
+            //ing.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            ing.enabled = true;
         }
 
         List<string> toppings = d.getToppings();
         for (int i = 0; i < toppings.Count; i++) {
-            RectTransform top = o.transform.Find("ToppingsImg").Find(toppings[i] + " Img").GetComponent<RectTransform>();
-            top.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            Image top = o.transform.Find(toppings[i] + " Img").GetComponent<Image>();
+            //top.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            top.enabled = true;
         }
     }
 
@@ -272,12 +301,13 @@ public class DrinkManager : MonoBehaviour
 
     public void AddIngredientImage(string b, Drink d) {
         GameObject ing = GameObject.Find(b + " Img");
-        ing.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        ing.GetComponent<Image>().enabled = true;
     }
 
     public void AddMilkImg() {
         GameObject milk = GameObject.Find("Milk Img");
-        milk.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        //milk.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        milk.GetComponent<Image>().enabled = true;
     }
 
     public void AddIngredientText(string b, Drink d) {
@@ -299,7 +329,7 @@ public class DrinkManager : MonoBehaviour
 
     public void AddToppingImage(string b, Drink d) {
         GameObject top = GameObject.Find(b + " Img");
-        top.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        top.GetComponent<Image>().enabled = true;
     }
 
     public void AddToppingText(string b, Drink d) {
@@ -440,4 +470,22 @@ public class DrinkManager : MonoBehaviour
         drinks["OrderScene"].Add(d);
     }
     #endregion
+
+
+    private void ScaleChildren(GameObject drinkObj, Vector3 parentScale) {
+        GameObject ingredients = drinkObj.transform.GetChild(4).gameObject;
+        GameObject toppings = drinkObj.transform.GetChild(5).gameObject;
+        GameObject milk = drinkObj.transform.GetChild(6).gameObject;
+        float xFactor = parentScale.x;
+        float yFactor = parentScale.y;
+        float zFactor = parentScale.z;
+        Debug.Log(parentScale);
+        foreach(Transform child in ingredients.transform) {
+            child.transform.localScale = new Vector3(xFactor, yFactor, zFactor);
+        }
+        foreach(Transform child in toppings.transform) {
+            child.transform.localScale = new Vector3(xFactor, yFactor, zFactor);
+        }
+        milk.transform.localScale = new Vector3(xFactor, yFactor, zFactor);
+    }
 }

@@ -16,10 +16,21 @@ public class Sealer : MonoBehaviour
     private Vector3 startPos;
     public Button sealButton;
     private GameObject drinkManager;
+    
+    private GameObject sealer;
+    private GameObject sealerClosed;
+
+    public float sealerDropDist;
+    public float sealerSwitchDelay1;
+    public float sealerSwitchDelay2;
 
     // Start is called before the first frame update
     void Start()
     {
+        sealer = GameObject.Find("Sealer");
+        sealerClosed = GameObject.Find("SealerClosed");
+        sealerClosed.SetActive(false);
+
         drinkManager = GameObject.Find("DrinkManager");
         GameObject canvas = GameObject.Find("Canvas");
         canvasPos = canvas.transform.position;
@@ -46,9 +57,11 @@ public class Sealer : MonoBehaviour
     {
         isSealed = true;  // stop the seal from automatically moving 
         Vector3 v = transform.position;  
-        v.y -= 25f;
+        v.y -= sealerDropDist;
         transform.position = v;
         sealButton.interactable = false;  // prevent user from sealing multiple times
+        Invoke("SwitchSealers", sealerSwitchDelay1);
+        Invoke("SwitchSealers", sealerSwitchDelay2);
         // middle position v.x = 257.0f
         // ratio 0.8f comes from max points / delta 
         DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
@@ -56,5 +69,15 @@ public class Sealer : MonoBehaviour
         int sealScore = (int) (100 - (Math.Abs(startPos.x - v.x) * 100 / delta));
         sealScore *= 5;
         currentDrink.seal(sealScore);
+    }
+
+    private void SwitchSealers() {
+        if (sealer.activeSelf) {
+            sealer.SetActive(false);
+            sealerClosed.SetActive(true);
+        } else {
+            sealerClosed.SetActive(false);
+            sealer.SetActive(true);
+        }
     }
 }
