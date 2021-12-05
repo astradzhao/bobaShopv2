@@ -17,25 +17,29 @@ public class Sealer : MonoBehaviour
     public Button sealButton;
     private GameObject drinkManager;
     
-    private GameObject sealer;
-    private GameObject sealerClosed;
+    private Image sealerImg;
+    private Image sealerImgClosed;
+    private Image lidImgClosed;
+    private Image lidImg;
 
-    public float sealerDropDist;
-    public float sealerSwitchDelay1;
-    public float sealerSwitchDelay2;
+    public float sealerSwitchDelay;
+    private bool touchingSealer;
 
     // Start is called before the first frame update
     void Start()
     {
-        sealer = GameObject.Find("Sealer");
-        sealerClosed = GameObject.Find("SealerClosed");
-        sealerClosed.SetActive(false);
-
+        lidImg = this.GetComponent<Image>();
+        sealerImg = GameObject.Find("Sealer").GetComponent<Image>();
+        sealerImgClosed = GameObject.Find("SealerClosed").GetComponent<Image>();
+        sealerImg.enabled = true;
+        sealerImgClosed.enabled = false;
+        touchingSealer = false;
+        lidImgClosed = GameObject.Find("LidClosedPosition").GetComponent<Image>();
+        lidImgClosed.enabled = false;
         drinkManager = GameObject.Find("DrinkManager");
         GameObject canvas = GameObject.Find("Canvas");
         canvasPos = canvas.transform.position;
         startPos = transform.position;
-
         delta = canvasPos.x / 2;
 
         Button btn = sealButton.GetComponent<Button>();
@@ -50,18 +54,22 @@ public class Sealer : MonoBehaviour
             Vector3 v = startPos;
             v.x += (delta * Mathf.Sin(Time.time * speed));
             transform.position = v; 
-        } 
+        }
+        Debug.Log(touchingSealer);
     }
 
     public void SealDrink()
     {
         isSealed = true;  // stop the seal from automatically moving 
-        Vector3 v = transform.position;  
-        v.y -= sealerDropDist;
-        transform.position = v;
+        Vector3 v = transform.position;
+        if (touchingSealer) {
+            lidImg.enabled = false; 
+            lidImgClosed.enabled = true;
+        }
         sealButton.interactable = false;  // prevent user from sealing multiple times
-        Invoke("SwitchSealers", sealerSwitchDelay1);
-        Invoke("SwitchSealers", sealerSwitchDelay2);
+        sealerImg.enabled = false;
+        sealerImgClosed.enabled = true;
+        StartCoroutine("SwitchAgain");
         // middle position v.x = 257.0f
         // ratio 0.8f comes from max points / delta 
         DrinkManager dm = drinkManager.GetComponent<DrinkManager>();
@@ -71,13 +79,21 @@ public class Sealer : MonoBehaviour
         currentDrink.seal(sealScore);
     }
 
-    private void SwitchSealers() {
-        if (sealer.activeSelf) {
-            sealer.SetActive(false);
-            sealerClosed.SetActive(true);
-        } else {
-            sealerClosed.SetActive(false);
-            sealer.SetActive(true);
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.tag == "sealer") {
+            touchingSealer = true;
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.gameObject.tag == "sealer") {
+            touchingSealer = false;
+        }
+    }
+
+    IEnumerator SwitchAgain() {
+        yield return new WaitForSeconds(sealerSwitchDelay);
+        sealerImgClosed.enabled = false;
+        sealerImg.enabled = true;
     }
 }

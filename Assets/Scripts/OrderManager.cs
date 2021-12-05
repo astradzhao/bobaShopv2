@@ -25,8 +25,6 @@ public class OrderManager : MonoBehaviour
     public GameObject newOrderBttnPrefab;
 
     private void Awake() {
-        totalOrderCount = 0;
-        ordersCompleted = 0;
         if (singleton == null)
         {
             DontDestroyOnLoad(gameObject);
