@@ -250,8 +250,6 @@ public class CustomerManager : MonoBehaviour
                     customer.setCustPos("PositionOrderDone");
                     customer.setSpriteToOrderDone();
                     customer.setIsOnScene(true);
-                    Debug.Log("There is a customer order done!");
-                    //customerAtOrderDone = true;
                     return;
                 }
             }

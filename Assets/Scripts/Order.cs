@@ -36,7 +36,9 @@ public class Order
         // 0 = doesn't have milk, 1 = has milk
         this.milk = Random.Range(0, 2);
 
-        // Number of Ingredients and toppings. Max for both is set to 2
+        // Number of Ingredients and toppings.
+        // Max Ingredients: 3
+        // Max Toppings: 4
         numIngredients = Random.Range(1, 4);
         numToppings = Random.Range(1, 5);
 

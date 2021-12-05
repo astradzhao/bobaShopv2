@@ -139,8 +139,8 @@ public class OrderManager : MonoBehaviour
         orderNumTxt.text = "Order #";
         Text teaBaseTxt = GameObject.Find("TeaBaseListUI").GetComponent<Text>();
         teaBaseTxt.text = "";
-        Text milkTxt = GameObject.Find("MilkUI").GetComponent<Text>();
-        milkTxt.text = "Milk: ";
+        Text milkTxt = GameObject.Find("MilkListUI").GetComponent<Text>();
+        milkTxt.text = "";
         Text ingredientsTxt = GameObject.Find("IngredientsListUI").GetComponent<Text>();
         ingredientsTxt.text = "";
         Text toppingsTxt = GameObject.Find("ToppingsListUI").GetComponent<Text>();

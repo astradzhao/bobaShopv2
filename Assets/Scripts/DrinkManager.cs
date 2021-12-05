@@ -9,6 +9,9 @@ public class DrinkManager : MonoBehaviour
     public static DrinkManager singleton;
     public GameObject myDrink;
     public GameObject currObject;
+
+    private GameObject drinkPos;
+
     public Canvas canvas;
     private static Dictionary<string, List<Drink>> drinks;
 
@@ -123,6 +126,7 @@ public class DrinkManager : MonoBehaviour
                 return;
             }
             else {
+                drinkPos = GameObject.Find("DrinkPosition");
                 Drink sceneD = drinks[sceneName][0];
                 DrinkComponent d = myDrink.GetComponent<DrinkComponent>();
                 canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
