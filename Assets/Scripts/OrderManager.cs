@@ -182,11 +182,11 @@ public class OrderManager : MonoBehaviour
         if (buttonScrollList.activeSelf) {
             buttonScrollList.SetActive(false);
             myOrdersTabOpen = false;
-            print("Setting visibility off");
+            //print("Setting visibility off");
         } else {
             buttonScrollList.SetActive(true);
             myOrdersTabOpen = true;
-            print("Setting visibility on");
+            //print("Setting visibility on");
         }
     }
 
@@ -198,7 +198,7 @@ public class OrderManager : MonoBehaviour
             if (order.GetOrderNum() == orderNum) {
                 currOrder = order;
                 ReloadOrderText();
-                print("Current Order displayed");
+                //print("Current Order displayed");
                 return;
             }
         }

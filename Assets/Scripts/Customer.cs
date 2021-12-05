@@ -7,14 +7,14 @@ public class Customer
 {
     List<Sprite> orderStatuses;
     private List<Sprite> customerSprites;
-    private Vector3 pos;
+    private string pos;
     private int orderNum;
     private bool isOnScene;
 
     private Sprite currSprite;
     private Sprite currOrderSprite;
 
-    public Customer(List<Sprite> customerSprites, List<Sprite> orderStatuses, Vector3 pos, int orderNum) {
+    public Customer(List<Sprite> customerSprites, List<Sprite> orderStatuses, string pos, int orderNum) {
         this.customerSprites = customerSprites;
         this.orderStatuses = orderStatuses;
         this.pos = pos;
@@ -28,7 +28,7 @@ public class Customer
         return this.orderNum;
     }
 
-    public Vector3 GetCustPos() {
+    public string GetCustPos() {
         return this.pos;
     }
 
@@ -48,7 +48,7 @@ public class Customer
         return this.orderNum == order.GetOrderNum();
     }
 
-    public void setCustPos(Vector3 newPos) {
+    public void setCustPos(string newPos) {
         this.pos = newPos;
     }
 

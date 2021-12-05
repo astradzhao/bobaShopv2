@@ -36,11 +36,11 @@ public class CustomerManager : MonoBehaviour
     private float lastCustomerSpawned;
     // The timer that determines customer spawning
     private float customerSpawnTimer;
-    
-    private Vector3 orderingPos1;
-    private Vector3 orderingPos2;
-    private Vector3 orderingPos3;
-    private Vector3 orderDonePos;
+
+    private GameObject orderingPos1;
+    private GameObject orderingPos2;
+    private GameObject orderingPos3;
+    private GameObject orderDonePos;
 
     private bool customerAtPos1;
     private bool customerAtPos2;
@@ -51,7 +51,6 @@ public class CustomerManager : MonoBehaviour
     private OrderManager orderManagerScript;
 
     private string sceneName;
-
 
     private void Awake() {
         if (singleton == null)
@@ -83,22 +82,13 @@ public class CustomerManager : MonoBehaviour
             canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
             orderManager = GameObject.Find("OrderManager");
             sceneBackground = GameObject.Find("SceneBackground");
+            orderingPos1 = GameObject.Find("Position1");
+            orderingPos2 = GameObject.Find("Position2");
+            orderingPos3 = GameObject.Find("Position3");
+            orderDonePos = GameObject.Find("PositionOrderDone");
             sceneBackground.GetComponent<Image>().overrideSprite = backgroundDoorClosed;
             orderManagerScript = orderManager.GetComponent<OrderManager>();
-            ReloadCustomers();
-
-            // Calculating Positions
-            RectTransform r = canvas.GetComponent<RectTransform>();
-            CanvasScaler canvasScale = canvas.GetComponent<CanvasScaler>();
-            float x = r.position.x;
-            float y = r.position.y;
-            Vector2 res = canvasScale.referenceResolution;
-            float h = res.y;
-            float w = res.x;
-            orderingPos1 = new Vector3(x - w / 2, y + h / 10, 0);
-            orderingPos2 = new Vector3(x, y + h / 10, 0);
-            orderingPos3 = new Vector3(x + w / 2, y + h / 10, 0);
-            orderDonePos = new Vector3(x - w * 2 + w / 2, y - h / 10, 0);
+            Invoke("ReloadCustomers", 0.001f);
         }
     }
 
@@ -127,15 +117,15 @@ public class CustomerManager : MonoBehaviour
             audiosource.Play();
     
             if (!customerAtPos1) {
-                Customer customer = new Customer(ChooseCustomer(), orderStatuses, orderingPos1, orderManagerScript.totalOrderCount + 1);
+                Customer customer = new Customer(ChooseCustomer(), orderStatuses, "Position1", orderManagerScript.totalOrderCount + 1);
                 customerAtPos1 = true;
                 customerList.Add(customer);
             } else if (!customerAtPos2) {
-                Customer customer = new Customer(ChooseCustomer(), orderStatuses, orderingPos2, orderManagerScript.totalOrderCount + 1);
+                Customer customer = new Customer(ChooseCustomer(), orderStatuses, "Position2", orderManagerScript.totalOrderCount + 1);
                 customerAtPos2 = true;
                 customerList.Add(customer);
             } else if (!customerAtPos3) {
-                Customer customer = new Customer(ChooseCustomer(), orderStatuses, orderingPos3, orderManagerScript.totalOrderCount + 1);
+                Customer customer = new Customer(ChooseCustomer(), orderStatuses, "Position3", orderManagerScript.totalOrderCount + 1);
                 customerAtPos3 = true;
                 customerList.Add(customer);
             }
@@ -166,32 +156,31 @@ public class CustomerManager : MonoBehaviour
     }
 
     // Adds a customer to the given position. Only happens on order scene
-    private void AddCustomer(Vector3 pos) {
+    private void AddCustomer(GameObject pos) {
         List<Sprite> custSprites = ChooseCustomer();
-        Customer customer = new Customer(custSprites, orderStatuses, pos, orderManagerScript.totalOrderCount + 1);
+        Customer customer = new Customer(custSprites, orderStatuses, pos.name, orderManagerScript.totalOrderCount + 1);
         customerList.Add(customer);
         customer.setIsOnScene(true);
 
-        GameObject newCustomer = Instantiate(customerPrefab, pos, Quaternion.identity);
-        newCustomer.GetComponent<Image>().overrideSprite = customer.GetCurrSprite();
+        GameObject customerObj = Instantiate(customerPrefab) as GameObject;
+        customerObj.GetComponent<Image>().overrideSprite = customer.GetCurrSprite();
         
-        GameObject newCustomerBttnObj = newCustomer.transform.GetChild(0).gameObject;
+        GameObject customerBttnObj = customerObj.transform.GetChild(0).gameObject;
 
-        newCustomer.transform.SetParent(canvas.transform);
-        newCustomer.transform.SetSiblingIndex(1);
-        newCustomer.transform.localScale = new Vector3(1, 1, 1);
+        customerObj.transform.SetParent(pos.transform);
+        customerObj.transform.localScale = new Vector3(1, 1, 1);
 
-        CanvasRenderer crCustomer = newCustomer.GetComponent<CanvasRenderer>();
-        CanvasRenderer crCustomerBttn = newCustomerBttnObj.GetComponent<CanvasRenderer>();
+        CanvasRenderer crCustomer = customerObj.GetComponent<CanvasRenderer>();
+        CanvasRenderer crCustomerBttn = customerBttnObj.GetComponent<CanvasRenderer>();
 
         if (sceneName == "OrderScene") {
 
             StartCoroutine(FadeInCustomer(crCustomer, crCustomerBttn));
         }
 
-        Button newCustomerBttn = newCustomerBttnObj.GetComponent<Button>();
+        Button newCustomerBttn = customerBttnObj.GetComponent<Button>();
         newCustomerBttn.onClick.AddListener(orderManagerScript.AddOrder);
-        newCustomerBttn.onClick.AddListener(delegate{CustomerDisappear(customer, newCustomer, newCustomerBttnObj, pos);});
+        newCustomerBttn.onClick.AddListener(delegate{CustomerDisappear(customer, customerObj, customerBttnObj);});
     }
 
     // Fades Customer in
@@ -214,7 +203,7 @@ public class CustomerManager : MonoBehaviour
     }
 
     // Fades customer out
-    IEnumerator FadeOutCustomer(Customer customer, GameObject customerObj, Vector3 pos, CanvasRenderer crCustomer, CanvasRenderer crCustomerBttn) {
+    IEnumerator FadeOutCustomer(Customer customer, GameObject customerObj, CanvasRenderer crCustomer, CanvasRenderer crCustomerBttn) {
         if (crCustomer != null && crCustomerBttn != null) {
             for (float alpha = 2f; alpha >= 0f; alpha -= 0.1f) {
                 if (crCustomer != null && crCustomerBttn != null) {
@@ -225,11 +214,12 @@ public class CustomerManager : MonoBehaviour
             }
         }
         customer.setIsOnScene(false);
-        if (pos == orderingPos1) {
+        string pos = customer.GetCustPos();
+        if (pos == "Position1") {
             customerAtPos1 = false;
-        } else if (pos == orderingPos2) {
+        } else if (pos == "Position2") {
             customerAtPos2 = false;
-        } else if (pos == orderingPos3) {
+        } else if (pos == "Position3") {
             customerAtPos3 = false;
         } else {
             customerAtOrderDone = false;
@@ -239,7 +229,7 @@ public class CustomerManager : MonoBehaviour
     }
 
     // Upon Clicking their order button
-    private void CustomerDisappear(Customer customer, GameObject customerObj, GameObject customerBttnObj, Vector3 pos) {
+    private void CustomerDisappear(Customer customer, GameObject customerObj, GameObject customerBttnObj) {
         Button button = customerBttnObj.GetComponent<Button>();
         button.interactable = false;
 
@@ -248,7 +238,7 @@ public class CustomerManager : MonoBehaviour
         CanvasRenderer crCustomer = customerObj.GetComponent<CanvasRenderer>();
         CanvasRenderer crCustomerBttn = customerBttnObj.GetComponent<CanvasRenderer>();
         if (sceneName == "OrderScene") {
-            StartCoroutine(FadeOutCustomer(customer, customerObj, pos, crCustomer, crCustomerBttn));
+            StartCoroutine(FadeOutCustomer(customer, customerObj, crCustomer, crCustomerBttn));
         }
     }
 
@@ -257,10 +247,11 @@ public class CustomerManager : MonoBehaviour
         if (!customerAtOrderDone) {
             foreach (Customer customer in customerList) {
                 if (customer.isMyDrink(completedOrder)) {
-                    customer.setCustPos(orderDonePos);
+                    customer.setCustPos("PositionOrderDone");
                     customer.setSpriteToOrderDone();
                     customer.setIsOnScene(true);
-                    customerAtOrderDone = true;
+                    Debug.Log("There is a customer order done!");
+                    //customerAtOrderDone = true;
                     return;
                 }
             }
@@ -280,34 +271,35 @@ public class CustomerManager : MonoBehaviour
 
     // Readds the customer into the scene.
     private void ReAdd(Customer customer) {
-        GameObject newCustomer = Instantiate(customerPrefab, customer.GetCustPos(), Quaternion.identity);
-        newCustomer.GetComponent<Image>().overrideSprite = customer.GetCurrSprite();
-        newCustomer.transform.SetParent(canvas.transform);
-        newCustomer.transform.SetSiblingIndex(1);
-        newCustomer.transform.localScale = new Vector3(1, 1, 1);
+        GameObject customerObj = Instantiate(customerPrefab) as GameObject;
+        customerObj.GetComponent<Image>().overrideSprite = customer.GetCurrSprite();
+        string customerPos = customer.GetCustPos();
+        GameObject pos = GameObject.Find(customerPos);
+        customerObj.transform.SetParent(pos.transform);
+        customerObj.transform.localScale = new Vector3(1, 1, 1);
 
-        if (customer.GetCustPos() == orderingPos1) {
+        if (customer.GetCustPos() == "Position1") {
             customerAtPos1 = true;
-        } else if (customer.GetCustPos() == orderingPos2) {
+        } else if (customer.GetCustPos() == "Position2") {
             customerAtPos2 = true;
-        } else if (customer.GetCustPos() == orderingPos3) {
+        } else if (customer.GetCustPos() == "Position3") {
             customerAtPos3 = true;
         } else {
             customerAtOrderDone = true;
         }
 
-        GameObject newCustomerBttnObj = newCustomer.transform.GetChild(0).gameObject;
-        if (customer.GetCustPos() == orderDonePos) {
-            newCustomerBttnObj.GetComponent<Image>().overrideSprite = orderStatuses[2];
+        GameObject customerBttnObj = customerObj.transform.GetChild(0).gameObject;
+        if (customer.GetCustPos() == "PositionOrderDone") {
+            customerBttnObj.GetComponent<Image>().overrideSprite = orderStatuses[2];
         }
-        CanvasRenderer crCustomer = newCustomer.GetComponent<CanvasRenderer>();
-        CanvasRenderer crCustomerBttn = newCustomerBttnObj.GetComponent<CanvasRenderer>();
+        CanvasRenderer crCustomer = customerObj.GetComponent<CanvasRenderer>();
+        CanvasRenderer crCustomerBttn = customerBttnObj.GetComponent<CanvasRenderer>();
 
-        Button newCustomerBttn = newCustomerBttnObj.GetComponent<Button>();
+        Button customerBttn = customerBttnObj.GetComponent<Button>();
 
-        if (customer.GetCustPos() != orderDonePos) {
-            newCustomerBttn.onClick.AddListener(orderManagerScript.AddOrder);
+        if (customer.GetCustPos() != "PositionOrderDone") {
+            customerBttn.onClick.AddListener(orderManagerScript.AddOrder);
         }
-        newCustomerBttn.onClick.AddListener(delegate{CustomerDisappear(customer, newCustomer, newCustomerBttnObj, customer.GetCustPos());});
+        customerBttn.onClick.AddListener(delegate{CustomerDisappear(customer, customerObj, customerBttnObj);});
     }
 }
