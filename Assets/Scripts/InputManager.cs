@@ -5,65 +5,31 @@ using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
-    // #region Public Variables
-    // public Button takeOrderBtn;
-    // public GameObject orderManager;
-    // public Sprite orderAlertSprite;
-    // public Sprite orderTakingSprite;
-    // public Sprite orderDoneSprite;
-    // public Text orderNumTxt;
-    // public Text teaBaseTxt;
-    // public Text ingredientsTxt;
-    // public Text toppingsTxt;
-    // #endregion
+    public float disableDuration;
+    public float lastOrderTakened;
+    public GameObject[] orderBubbles;
 
-    // #region Private Variables
-    // private Sprite currOrderSprite;
-    // private OrderManager orderManagerScript;
-    // #endregion
+    void Start() {
+        orderBubbles = GameObject.FindGameObjectsWithTag("orderBubble");
+    }
 
-    // void Start() {
-    //     currOrderSprite = takeOrderBtn.image.sprite;
-    //     orderManager = GameObject.Find("OrderManager");
-    //     orderManagerScript = orderManager.GetComponent<OrderManager>(); 
-    // }
+    void Update()
+    {
+        orderBubbles = GameObject.FindGameObjectsWithTag("orderBubble");
 
-    // void Update() {
-    // }
-    
-	// public void DoSomething () {
-    //     if (currOrderSprite == orderAlertSprite) {
-    //         DisplayOrder();
-    //         takeOrderBtn.image.sprite = orderTakingSprite;
-    //     } else if (currOrderSprite == orderDoneSprite) {
-    //         print("Order Complete!");
-    //         takeOrderBtn.image.sprite = orderAlertSprite;
-    //     }
-    //     currOrderSprite = takeOrderBtn.image.sprite;
+        foreach (GameObject orderBubble in orderBubbles)
+        {
+            Button orderBttn = orderBubble.GetComponent<Button>();
+            if (Time.time > lastOrderTakened + disableDuration) {
+                orderBttn.interactable = true;
+            } else {
+                orderBttn.interactable = false;
+            }
+        }
+    }
 
-	// }
-
-	// void DisplayOrder() {
-	// 	Order newOrder = new Order(orderManagerScript.totalOrderCount);
-    //     orderManagerScript.AddOrder(newOrder);
-    //     //takeOrderBtn.
-	// }
-
-    // void SetOrderText(Order order) {
-    //     orderNumTxt.text = "Order #" + order.GetOrderNum().ToString();
-    //     teaBaseTxt.text = "";
-    //     ingredientsTxt.text = "";
-    //     toppingsTxt.text = "";
-
-    //     teaBaseTxt.text = "- " + order.GetTeaBase();
-        
-    //     foreach (string ing in order.GetIngredients()) {
-    //         ingredientsTxt.text += "- " + ing + "\n" ;
-    //     }
-
-    //     foreach (string top in order.GetToppings()) {
-    //         toppingsTxt.text += "- " + top + "\n" ;
-    //     }
-    // }
+    public void UpdateLastOrder() {
+        lastOrderTakened = Time.time;
+    }
 
 }

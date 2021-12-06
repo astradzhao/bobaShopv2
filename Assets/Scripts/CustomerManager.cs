@@ -55,6 +55,8 @@ public class CustomerManager : MonoBehaviour
     private ScoreManager scoreManagerScript;
     private GameObject drinkManager;
     private DrinkManager drinkManagerScript;
+    private GameObject inputManager;
+    private InputManager inputManagerScript;
 
     private string sceneName;
 
@@ -64,7 +66,7 @@ public class CustomerManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             singleton = this;
             customerList = new List<Customer>();
-            lastCustomerSpawned = 1f; // 
+            lastCustomerSpawned = 0f;
             customerAtPos1 = false;
             customerAtPos2 = false;
             customerAtPos3 = false;
@@ -90,6 +92,7 @@ public class CustomerManager : MonoBehaviour
             soundManager = GameObject.Find("SoundManager");
             scoreManager = GameObject.Find("ScoreManager");
             drinkManager = GameObject.Find("DrinkManager");
+            inputManager = GameObject.Find("InputManager");
             sceneBackground = GameObject.Find("SceneBackground");
             orderingPos1 = GameObject.Find("Position1");
             orderingPos2 = GameObject.Find("Position2");
@@ -100,6 +103,7 @@ public class CustomerManager : MonoBehaviour
             soundManagerScript = soundManager.GetComponent<SoundManager>();
             scoreManagerScript = scoreManager.GetComponent<ScoreManager>();
             drinkManagerScript = drinkManager.GetComponent<DrinkManager>();
+            inputManagerScript = inputManager.GetComponent<InputManager>();
             Invoke("ReloadCustomers", 0.001f);
         }
     }
@@ -108,7 +112,18 @@ public class CustomerManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    private void Start() {
+        ReloadCustomers();
+    }
+
     private void Update() {
+        // string customerNumbers = "";
+        //     foreach (Customer customer in customerList) {
+        //         customerNumbers += customer.GetCustOrder().ToString() + " ";
+        //     }
+        //Debug.Log("list of customers: " + customerNumbers);
+        // Debug.Log("Customer List" + customerList.Count.ToString());
+        // Debug.Log("Order List" + orderManagerScript.GetOrderCount());
         if (sceneName == "OrderScene" && CanAddCustomer()) {
             // Play door opening
             audiosource.Play();
@@ -116,32 +131,36 @@ public class CustomerManager : MonoBehaviour
             if (!customerAtPos1) {
                 AddCustomer(orderingPos1);
                 customerAtPos1 = true;
+                lastCustomerSpawned = Time.time;
             } else if (!customerAtPos2) {
                 AddCustomer(orderingPos2);
                 customerAtPos2 = true;
+                lastCustomerSpawned = Time.time;
             } else if (!customerAtPos3) {
                 AddCustomer(orderingPos3);
                 customerAtPos3 = true;
+                lastCustomerSpawned = Time.time;
             }
-            lastCustomerSpawned = Time.time;
         } else if (CanAddCustomer() && sceneName != "StartScene") {
             // Play door opening
             audiosource.Play();
     
             if (!customerAtPos1) {
-                Customer customer = new Customer(ChooseCustomer(), orderStatuses, "Position1", orderManagerScript.totalOrderCount + 1);
+                Customer customer = new Customer(ChooseCustomer(), orderStatuses, "Position1");
                 customerAtPos1 = true;
                 customerList.Add(customer);
+                lastCustomerSpawned = Time.time;
             } else if (!customerAtPos2) {
-                Customer customer = new Customer(ChooseCustomer(), orderStatuses, "Position2", orderManagerScript.totalOrderCount + 1);
+                Customer customer = new Customer(ChooseCustomer(), orderStatuses, "Position2");
                 customerAtPos2 = true;
                 customerList.Add(customer);
+                lastCustomerSpawned = Time.time;
             } else if (!customerAtPos3) {
-                Customer customer = new Customer(ChooseCustomer(), orderStatuses, "Position3", orderManagerScript.totalOrderCount + 1);
+                Customer customer = new Customer(ChooseCustomer(), orderStatuses, "Position3");
                 customerAtPos3 = true;
                 customerList.Add(customer);
+                lastCustomerSpawned = Time.time;
             }
-            lastCustomerSpawned = Time.time;
         } else {
             // Do nothing
         }
@@ -169,8 +188,9 @@ public class CustomerManager : MonoBehaviour
 
     // Adds a customer to the given position. Only happens on order scene
     private void AddCustomer(GameObject pos) {
+
         List<Sprite> custSprites = ChooseCustomer();
-        Customer customer = new Customer(custSprites, orderStatuses, pos.name, orderManagerScript.totalOrderCount + 1);
+        Customer customer = new Customer(custSprites, orderStatuses, pos.name);
         customerList.Add(customer);
         customer.setIsOnScene(true);
 
@@ -191,7 +211,10 @@ public class CustomerManager : MonoBehaviour
         }
 
         Button newCustomerBttn = customerBttnObj.GetComponent<Button>();
+        newCustomerBttn.onClick.AddListener(inputManagerScript.UpdateLastOrder);
+        newCustomerBttn.onClick.AddListener(AddCustSpawnDelay);
         newCustomerBttn.onClick.AddListener(orderManagerScript.AddOrder);
+        newCustomerBttn.onClick.AddListener(delegate{UpdateCustOrderNum(customer);});
         newCustomerBttn.onClick.AddListener(delegate{CustomerDisappear(customer, customerObj, customerBttnObj);});
         newCustomerBttn.onClick.AddListener(soundManagerScript.PlayAudioCustomerOrder);
     }
@@ -234,7 +257,7 @@ public class CustomerManager : MonoBehaviour
             customerAtPos2 = false;
         } else if (pos == "Position3") {
             customerAtPos3 = false;
-        } else {
+        } else if (pos == "PositionOrderDone") {
             customerAtOrderDone = false;
             customerList.Remove(customer);
         }
@@ -258,8 +281,10 @@ public class CustomerManager : MonoBehaviour
     // Checks to see if a customer's order is done (Only one at a time)
     public void CheckCustomers(Order order, Drink drink, float timeCompleted) {
         if (!customerAtOrderDone) {
+            //Debug.Log("OrderDonePos free when checking for: " + order.GetOrderNum());
             foreach (Customer customer in customerList) {
                 if (customer.isMyDrink(order)) {
+                    //Debug.Log("Customer found for order #: " + customer.GetCustOrder());
                     customer.setCustPos("PositionOrderDone");
                     customer.setSpriteToOrderDone();
                     customer.setIsOnScene(true);
@@ -267,6 +292,12 @@ public class CustomerManager : MonoBehaviour
                     return;
                 }
             }
+            // Debug.Log("No customers found for order #: " + order.GetOrderNum());
+            // string customerNumbers = "";
+            // foreach (Customer customer in customerList) {
+            //     customerNumbers += customer.GetCustOrder().ToString() + " ";
+            // }
+            //Debug.Log("list of customers: " + customerNumbers);
         }
     }
 
@@ -296,7 +327,7 @@ public class CustomerManager : MonoBehaviour
             customerAtPos2 = true;
         } else if (customer.GetCustPos() == "Position3") {
             customerAtPos3 = true;
-        } else {
+        } else if (customer.GetCustPos() == "PositionOrderDone") {
             customerAtOrderDone = true;
         }
 
@@ -312,7 +343,10 @@ public class CustomerManager : MonoBehaviour
         if (customer.GetCustPos() == "PositionOrderDone") {
             customerBttn.onClick.AddListener(delegate{SetUpOrderCompletion(customer);});
         } else {
+            customerBttn.onClick.AddListener(inputManagerScript.UpdateLastOrder);
+            customerBttn.onClick.AddListener(AddCustSpawnDelay);
             customerBttn.onClick.AddListener(orderManagerScript.AddOrder);
+            customerBttn.onClick.AddListener(delegate{UpdateCustOrderNum(customer);});
             customerBttn.onClick.AddListener(soundManagerScript.PlayAudioCustomerOrder);
         }
         customerBttn.onClick.AddListener(delegate{CustomerDisappear(customer, customerObj, customerBttnObj);});
@@ -326,4 +360,13 @@ public class CustomerManager : MonoBehaviour
         orderManagerScript.RemoveOrder(customer.GetCompletedOrder());
         orderManagerScript.ReloadOrderText();
     }
+
+    private void UpdateCustOrderNum(Customer customer) {
+        customer.AssignCustOrderNum(orderManagerScript.GetOrderCount());
+    }
+
+    private void AddCustSpawnDelay() {
+        lastCustomerSpawned = Time.time;
+    }
+    
 }

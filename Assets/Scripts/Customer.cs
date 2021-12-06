@@ -19,14 +19,17 @@ public class Customer
     private Drink completedDrink;
     private float timeCompleted;
 
-    public Customer(List<Sprite> customerSprites, List<Sprite> orderStatuses, string pos, int orderNum) {
+    public Customer(List<Sprite> customerSprites, List<Sprite> orderStatuses, string pos) {
         this.customerSprites = customerSprites;
         this.orderStatuses = orderStatuses;
         this.pos = pos;
-        this.orderNum = orderNum;
         this.currSprite = customerSprites[0];
         this.currOrderSprite = orderStatuses[0];
         this.isOnScene = true;
+    }
+
+    public void AssignCustOrderNum(int num) {
+        this.orderNum = num;
     }
 
     public int GetCustOrder() {

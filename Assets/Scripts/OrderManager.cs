@@ -119,7 +119,15 @@ public class OrderManager : MonoBehaviour
             for (int j = 0; j < drinksOnOrderScene.Count; j++) {
                 Drink currDrink = drinksOnOrderScene[j];
                 if (cOrder.equalsDrink(currDrink)) {
-                     int orderIndex = orderList.IndexOf(cOrder);
+                    int orderIndex = orderList.IndexOf(cOrder);
+                    
+                    //Debug.Log("Order done! #" + cOrder.GetOrderNum().ToString());
+
+                    //  sm.addScore(cOrder, currDrink, orderTimers[orderIndex]);
+                    //  ordersCompleted += 1;
+                    //  dm.RemoveFromOrder(currDrink);
+                    //  this.RemoveOrder(cOrder);
+                    //  this.ReloadOrderText();
 
                      // Update Customer's position
                      CustomerManager custManagerScript = customerManager.GetComponent<CustomerManager>();
@@ -205,5 +213,9 @@ public class OrderManager : MonoBehaviour
 
     public int GetTotalCompletedOrders() {
         return ordersCompleted;
+    }
+
+    public int GetOrderCount() {
+        return orderList.Count;
     }
 }

@@ -55,7 +55,7 @@ public class Sealer : MonoBehaviour
             v.x += (delta * Mathf.Sin(Time.time * speed));
             transform.position = v; 
         }
-        Debug.Log(touchingSealer);
+        //Debug.Log(touchingSealer);
     }
 
     public void SealDrink()

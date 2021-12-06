@@ -606,6 +606,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44d4f273ecb1dd4cbd403dee854afab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableDuration: 1
+  lastOrderTakened: 0
+  orderBubbles: []
 --- !u!4 &670633204
 Transform:
   m_ObjectHideFlags: 0
