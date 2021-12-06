@@ -49,6 +49,8 @@ public class CustomerManager : MonoBehaviour
 
     private GameObject orderManager;
     private OrderManager orderManagerScript;
+    private GameObject soundManager;
+    private SoundManager soundManagerScript;
 
     private string sceneName;
 
@@ -81,6 +83,7 @@ public class CustomerManager : MonoBehaviour
         if (sceneName == "OrderScene") {
             canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
             orderManager = GameObject.Find("OrderManager");
+            soundManager = GameObject.Find("SoundManager");
             sceneBackground = GameObject.Find("SceneBackground");
             orderingPos1 = GameObject.Find("Position1");
             orderingPos2 = GameObject.Find("Position2");
@@ -88,6 +91,7 @@ public class CustomerManager : MonoBehaviour
             orderDonePos = GameObject.Find("PositionOrderDone");
             sceneBackground.GetComponent<Image>().overrideSprite = backgroundDoorClosed;
             orderManagerScript = orderManager.GetComponent<OrderManager>();
+            soundManagerScript = soundManager.GetComponent<SoundManager>();
             Invoke("ReloadCustomers", 0.001f);
         }
     }
@@ -181,6 +185,7 @@ public class CustomerManager : MonoBehaviour
         Button newCustomerBttn = customerBttnObj.GetComponent<Button>();
         newCustomerBttn.onClick.AddListener(orderManagerScript.AddOrder);
         newCustomerBttn.onClick.AddListener(delegate{CustomerDisappear(customer, customerObj, customerBttnObj);});
+        newCustomerBttn.onClick.AddListener(soundManagerScript.PlayAudioCustomerOrder);
     }
 
     // Fades Customer in
@@ -297,7 +302,9 @@ public class CustomerManager : MonoBehaviour
 
         if (customer.GetCustPos() != "PositionOrderDone") {
             customerBttn.onClick.AddListener(orderManagerScript.AddOrder);
+            customerBttn.onClick.AddListener(soundManagerScript.PlayAudioCustomerOrder);
         }
         customerBttn.onClick.AddListener(delegate{CustomerDisappear(customer, customerObj, customerBttnObj);});
+        customerBttn.onClick.AddListener(soundManagerScript.PlayAudioCustomerOrder);
     }
 }

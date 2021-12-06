@@ -1663,7 +1663,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 851928683284670537, guid: d75f759f59273284cb28a95ab4bda833, type: 3}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
         m_MethodName: IngredientsScene
         m_Mode: 1
@@ -1877,7 +1877,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 851928683284670537, guid: d75f759f59273284cb28a95ab4bda833, type: 3}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
         m_MethodName: MixingScene
         m_Mode: 1
@@ -2010,7 +2010,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 851928683284670537, guid: d75f759f59273284cb28a95ab4bda833, type: 3}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
         m_MethodName: ToppingsScene
         m_Mode: 1
@@ -2503,7 +2503,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 851928683284670537, guid: d75f759f59273284cb28a95ab4bda833, type: 3}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
         m_MethodName: BasesScene
         m_Mode: 1
@@ -2749,12 +2749,12 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 3946791686096080026}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 851928683284670537, guid: d75f759f59273284cb28a95ab4bda833, type: 3}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
         m_MethodName: OrderScene
         m_Mode: 1
@@ -3148,7 +3148,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 851928683284670537, guid: d75f759f59273284cb28a95ab4bda833, type: 3}
         m_TargetAssemblyTypeName: SceneManage, Assembly-CSharp
         m_MethodName: SealingScene
         m_Mode: 1

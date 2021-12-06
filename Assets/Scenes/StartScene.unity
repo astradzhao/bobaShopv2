@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &490908520
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3773558381939669965, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454940756620091974, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454940756620091974, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 610.7679
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454940756620091974, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 670.66003
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454940756620091974, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -471.16272
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454940756620091974, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454940756620091974, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454940756620091974, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454940756620091974, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454940756620091974, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454940756620091974, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454940756620091974, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
 --- !u!1 &500989725
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,6 +441,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1307334197}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayAudioBttn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &782066115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,6 +557,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a80656c12b7a5b3489f092fb9ee15b64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1307334197 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4478772898807963609, guid: ccd85203b74516a4191bfa2ab33179c3, type: 3}
+  m_PrefabInstance: {fileID: 490908520}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 640ce9b040d914f43986e71c6b5753a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1690486874
