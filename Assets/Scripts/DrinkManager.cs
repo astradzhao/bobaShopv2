@@ -47,9 +47,11 @@ public class DrinkManager : MonoBehaviour
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        newDrink();
-        if (scene.name != "OrderScene") {
-            reloadObject();
+        if (scene.name != "GameOver") {
+            newDrink();
+            if (scene.name != "OrderScene") {
+                reloadObject();
+            }
         }
     }
 
@@ -141,7 +143,7 @@ public class DrinkManager : MonoBehaviour
             }
         }
         else {
-            if (drinks[sceneName].Count == 0) {
+            if (sceneName == "GameOverScene" || drinks[sceneName].Count == 0) {
                 return;
             }
             else {

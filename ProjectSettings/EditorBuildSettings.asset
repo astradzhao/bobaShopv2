@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SealingScene.unity
     guid: 47aca398716ec694c96fe24403cdc1f2
+  - enabled: 1
+    path: Assets/Scenes/GameOverScene.unity
+    guid: 1fc0e183ac3ede04c9d22f13b86bc93f
   m_configObjects: {}

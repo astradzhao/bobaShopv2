@@ -338,7 +338,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0dca6480c575d6c4697063e5ff8275e4, type: 3}
   customerPrefab: {fileID: 6551441139534523614, guid: 176f3aad0a22c964c85eba7d2fda18b9, type: 3}
   canvas: {fileID: 0}
-  customerSpawnRate: 10
+  customerSpawnRate: 2
 --- !u!4 &322958780
 Transform:
   m_ObjectHideFlags: 0
@@ -1241,6 +1241,10 @@ PrefabInstance:
       propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3937979060802708867, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5626571225687744535, guid: f11e1c1991028f14e99127d0ef2bd3c4, type: 3}
       propertyPath: m_Name
       value: SceneOrderUI
@@ -1388,6 +1392,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1919840675}
   m_CullTransparentMesh: 1
+--- !u!1 &2031206158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2031206159}
+  - component: {fileID: 2031206160}
+  m_Layer: 0
+  m_Name: TimeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2031206159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031206158}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1974.0273, y: 1067.0497, z: -913.238}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2031206160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031206158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e842e73f5e3a0746a97f85ce6de9de4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimerText: {fileID: 0}
+  playing: 0
+  startingTime: 61
+  finalScore: {fileID: 0}
+  finalOrdersCompleted: {fileID: 0}
 --- !u!1001 &2118096958
 PrefabInstance:
   m_ObjectHideFlags: 0

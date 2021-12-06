@@ -39,4 +39,8 @@ public class ScoreManager : MonoBehaviour
         score += drink.getMixScore() + drink.getSealScore();
         totalScore += (int) score;
     }
+
+    public float GetTotalScore() {
+        return totalScore;
+    }
 }

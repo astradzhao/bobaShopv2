@@ -50,7 +50,7 @@ public class SoundManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         String sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName != "StartScene") {
+        if (sceneName != "StartScene" && sceneName != "GameOverScene") {
             Button OrderScene = GameObject.Find("OrderScene").GetComponent<Button>();
             Button BaseScene = GameObject.Find("BaseScene").GetComponent<Button>();
             Button IngredScene = GameObject.Find("IngredScene").GetComponent<Button>();

@@ -52,23 +52,25 @@ public class OrderManager : MonoBehaviour
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        myOrdersBtn = GameObject.Find("My Orders").GetComponent<Button>();
-        myOrdersBtn.onClick.AddListener(ShowOrderList);
-        buttonScrollList = GameObject.Find("ButtonScrollList");
-        buttonListContent = GameObject.Find("ButtonListContent").transform;
-        if (!myOrdersTabOpen) {
-           buttonScrollList.SetActive(false); 
-        }
-        drinksOnOrderScene = new List<Drink>();
-        drinkManager = GameObject.Find("DrinkManager");
-        scoreManager = GameObject.Find("ScoreManager");
         string sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName == "OrderScene") {
-            customerManager = GameObject.Find("CustomerManager");
-            CheckDrinks();
+        if (sceneName != "GameOverScene") {
+            myOrdersBtn = GameObject.Find("My Orders").GetComponent<Button>();
+            myOrdersBtn.onClick.AddListener(ShowOrderList);
+            buttonScrollList = GameObject.Find("ButtonScrollList");
+            buttonListContent = GameObject.Find("ButtonListContent").transform;
+            if (!myOrdersTabOpen) {
+                buttonScrollList.SetActive(false); 
+            }
+            drinksOnOrderScene = new List<Drink>();
+            drinkManager = GameObject.Find("DrinkManager");
+            scoreManager = GameObject.Find("ScoreManager");
+            if (sceneName == "OrderScene") {
+                customerManager = GameObject.Find("CustomerManager");
+                CheckDrinks();
+            }
+            ReloadOrderText();
+            ReAddMyOrdersList();
         }
-        ReloadOrderText();
-        ReAddMyOrdersList();
     }
 
     private void OnDisable() {
@@ -199,5 +201,9 @@ public class OrderManager : MonoBehaviour
 
     public void IncreaseCompletedOrders() {
         ordersCompleted += 1;
+    }
+
+    public int GetTotalCompletedOrders() {
+        return ordersCompleted;
     }
 }

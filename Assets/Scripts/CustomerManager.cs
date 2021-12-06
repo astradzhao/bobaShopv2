@@ -64,7 +64,7 @@ public class CustomerManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             singleton = this;
             customerList = new List<Customer>();
-            lastCustomerSpawned = 0;
+            lastCustomerSpawned = 1f; // 
             customerAtPos1 = false;
             customerAtPos2 = false;
             customerAtPos3 = false;
@@ -124,7 +124,7 @@ public class CustomerManager : MonoBehaviour
                 customerAtPos3 = true;
             }
             lastCustomerSpawned = Time.time;
-        } else if (CanAddCustomer()) {
+        } else if (CanAddCustomer() && sceneName != "StartScene") {
             // Play door opening
             audiosource.Play();
     
