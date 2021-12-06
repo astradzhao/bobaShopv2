@@ -118,21 +118,16 @@ public class OrderManager : MonoBehaviour
                 Drink currDrink = drinksOnOrderScene[j];
                 if (cOrder.equalsDrink(currDrink)) {
                      int orderIndex = orderList.IndexOf(cOrder);
-                     sm.addScore(cOrder, currDrink, orderTimers[orderIndex]);
-                     ordersCompleted += 1;
-                     dm.RemoveFromOrder(currDrink);
-                     this.RemoveOrder(cOrder);
-                     this.ReloadOrderText();
 
                      // Update Customer's position
                      CustomerManager custManagerScript = customerManager.GetComponent<CustomerManager>();
-                     custManagerScript.CheckCustomers(cOrder);
+                     custManagerScript.CheckCustomers(cOrder, currDrink, orderTimers[orderIndex]);
                 }
             }
         }
     }
 
-    void ReloadOrderText() {
+    public void ReloadOrderText() {
         Text orderNumTxt = GameObject.Find("Order#UI").GetComponent<Text>();
         orderNumTxt.text = "Order #";
         Text teaBaseTxt = GameObject.Find("TeaBaseListUI").GetComponent<Text>();
@@ -200,5 +195,9 @@ public class OrderManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void IncreaseCompletedOrders() {
+        ordersCompleted += 1;
     }
 }

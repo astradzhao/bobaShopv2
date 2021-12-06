@@ -51,6 +51,10 @@ public class CustomerManager : MonoBehaviour
     private OrderManager orderManagerScript;
     private GameObject soundManager;
     private SoundManager soundManagerScript;
+    private GameObject scoreManager;
+    private ScoreManager scoreManagerScript;
+    private GameObject drinkManager;
+    private DrinkManager drinkManagerScript;
 
     private string sceneName;
 
@@ -84,6 +88,8 @@ public class CustomerManager : MonoBehaviour
             canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
             orderManager = GameObject.Find("OrderManager");
             soundManager = GameObject.Find("SoundManager");
+            scoreManager = GameObject.Find("ScoreManager");
+            drinkManager = GameObject.Find("DrinkManager");
             sceneBackground = GameObject.Find("SceneBackground");
             orderingPos1 = GameObject.Find("Position1");
             orderingPos2 = GameObject.Find("Position2");
@@ -92,6 +98,8 @@ public class CustomerManager : MonoBehaviour
             sceneBackground.GetComponent<Image>().overrideSprite = backgroundDoorClosed;
             orderManagerScript = orderManager.GetComponent<OrderManager>();
             soundManagerScript = soundManager.GetComponent<SoundManager>();
+            scoreManagerScript = scoreManager.GetComponent<ScoreManager>();
+            drinkManagerScript = drinkManager.GetComponent<DrinkManager>();
             Invoke("ReloadCustomers", 0.001f);
         }
     }
@@ -248,13 +256,14 @@ public class CustomerManager : MonoBehaviour
     }
 
     // Checks to see if a customer's order is done (Only one at a time)
-    public void CheckCustomers(Order completedOrder) {
+    public void CheckCustomers(Order order, Drink drink, float timeCompleted) {
         if (!customerAtOrderDone) {
             foreach (Customer customer in customerList) {
-                if (customer.isMyDrink(completedOrder)) {
+                if (customer.isMyDrink(order)) {
                     customer.setCustPos("PositionOrderDone");
                     customer.setSpriteToOrderDone();
                     customer.setIsOnScene(true);
+                    customer.SetCompletedDrink(order, drink, timeCompleted);
                     return;
                 }
             }
@@ -300,11 +309,21 @@ public class CustomerManager : MonoBehaviour
 
         Button customerBttn = customerBttnObj.GetComponent<Button>();
 
-        if (customer.GetCustPos() != "PositionOrderDone") {
+        if (customer.GetCustPos() == "PositionOrderDone") {
+            customerBttn.onClick.AddListener(delegate{SetUpOrderCompletion(customer);});
+        } else {
             customerBttn.onClick.AddListener(orderManagerScript.AddOrder);
             customerBttn.onClick.AddListener(soundManagerScript.PlayAudioCustomerOrder);
         }
         customerBttn.onClick.AddListener(delegate{CustomerDisappear(customer, customerObj, customerBttnObj);});
         customerBttn.onClick.AddListener(soundManagerScript.PlayAudioCustomerOrder);
+    }
+
+    private void SetUpOrderCompletion(Customer customer) {
+        scoreManagerScript.addScore(customer.GetCompletedDrink(), customer.GetTimeCompleted());
+        orderManagerScript.IncreaseCompletedOrders();
+        drinkManagerScript.RemoveFromOrder(customer.GetCompletedDrink());
+        orderManagerScript.RemoveOrder(customer.GetCompletedOrder());
+        orderManagerScript.ReloadOrderText();
     }
 }

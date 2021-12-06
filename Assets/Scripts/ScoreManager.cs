@@ -28,7 +28,7 @@ public class ScoreManager : MonoBehaviour
         Score.scoreValue = totalScore;
     }
 
-    public void addScore(Order order, Drink drink, float time) {
+    public void addScore(Drink drink, float time) {
         float score = 0;
         if (time > 95) {
             score += Mathf.Max(0, 500 - ((time - 95) * 10));

@@ -14,6 +14,11 @@ public class Customer
     private Sprite currSprite;
     private Sprite currOrderSprite;
 
+    // Upon Completetion of Order
+    private Order completedOrder;
+    private Drink completedDrink;
+    private float timeCompleted;
+
     public Customer(List<Sprite> customerSprites, List<Sprite> orderStatuses, string pos, int orderNum) {
         this.customerSprites = customerSprites;
         this.orderStatuses = orderStatuses;
@@ -54,5 +59,23 @@ public class Customer
 
     public void setSpriteToOrderDone() {
         this.currSprite = customerSprites[1];
+    }
+
+    public void SetCompletedDrink(Order order, Drink drink, float time) {
+        this.completedOrder = order;
+        this.completedDrink = drink;
+        this.timeCompleted = time;
+    }
+
+    public Order GetCompletedOrder() {
+        return this.completedOrder;
+    }
+
+    public Drink GetCompletedDrink() {
+        return this.completedDrink;
+    }
+
+    public float GetTimeCompleted() {
+        return this.timeCompleted;
     }
 }
