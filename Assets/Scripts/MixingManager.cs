@@ -14,6 +14,10 @@ public class MixingManager : MonoBehaviour
 
     public string currentScene;
 
+    private AudioSource mixingAudio0;
+    private AudioSource mixingAudio1;
+    private AudioSource mixingAudio2;
+
     void Awake() {
         if (singleton == null)
         {
@@ -28,6 +32,10 @@ public class MixingManager : MonoBehaviour
             mEnabled[0] = false;
             mEnabled[0] = false;
             currentScene = SceneManager.GetActiveScene().name;
+
+            mixingAudio0 = this.gameObject.transform.GetChild(0).GetComponent<AudioSource>();
+            mixingAudio1 = this.gameObject.transform.GetChild(1).GetComponent<AudioSource>();
+            mixingAudio2 = this.gameObject.transform.GetChild(2).GetComponent<AudioSource>();
         }
         else if (singleton != this)
         {
@@ -62,6 +70,8 @@ public class MixingManager : MonoBehaviour
                 updateSlider(i, mixers[i]);
             }
         }
+
+
     }
     public void updateSlider(int m, float val) {
         string sliderString = "MixerSlider" + m;
@@ -76,10 +86,24 @@ public class MixingManager : MonoBehaviour
         int n = m + 1;
         if (dm.getStationDrinks("MixingScene" + n).Count != 0) {
             mEnabled[m] = true;
+            if (m == 0) {
+                mixingAudio0.Play();
+            } else if (m == 1) {
+                mixingAudio1.Play();
+            } else if (m == 2) {
+                mixingAudio2.Play();
+            }
         }
     }
     public void stopMixer(int m) {
         mEnabled[m] = false;
+        if (m == 0) {
+            mixingAudio0.Stop();
+        } else if (m == 1) {
+            mixingAudio1.Stop();
+        } else if (m == 2) {
+            mixingAudio1.Stop();
+        }
     }
 
     public void addScore(int m) {
