@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 6551441139534523617}
   - component: {fileID: 6551441139534523619}
   - component: {fileID: 6551441139534523616}
+  - component: {fileID: 7623552751857542368}
   m_Layer: 5
   m_Name: Customer
   m_TagString: Untagged
@@ -278,3 +279,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &7623552751857542368
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6551441139534523614}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

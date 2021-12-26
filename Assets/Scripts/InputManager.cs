@@ -9,6 +9,8 @@ public class InputManager : MonoBehaviour
     public float lastOrderTakened;
     public GameObject[] orderBubbles;
 
+    private Button lastOrderBttnPressed;
+
     void Start() {
         orderBubbles = GameObject.FindGameObjectsWithTag("orderBubble");
     }
@@ -20,7 +22,7 @@ public class InputManager : MonoBehaviour
         foreach (GameObject orderBubble in orderBubbles)
         {
             Button orderBttn = orderBubble.GetComponent<Button>();
-            if (Time.time > lastOrderTakened + disableDuration) {
+            if (Time.time > lastOrderTakened + disableDuration && orderBttn != lastOrderBttnPressed) {
                 orderBttn.interactable = true;
             } else {
                 orderBttn.interactable = false;
@@ -28,7 +30,8 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public void UpdateLastOrder() {
+    public void UpdateLastOrder(Button latestBttn) {
+        lastOrderBttnPressed = latestBttn;
         lastOrderTakened = Time.time;
     }
 
