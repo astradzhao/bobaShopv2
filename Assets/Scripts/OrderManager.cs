@@ -84,6 +84,14 @@ public class OrderManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    public void Reset() {
+        totalOrderCount = 0;
+        ordersCompleted = 0;
+        orderList = new List<Order>();
+        orderBttnObjMap = new Dictionary<int, GameObject>();
+        orderTimers = new List<float>();
+        currOrder = null;
+    }
 
     public void AddOrder() {
         totalOrderCount += 1;

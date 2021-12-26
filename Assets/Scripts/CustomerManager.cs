@@ -112,8 +112,13 @@ public class CustomerManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void Start() {
-        ReloadCustomers();
+    public void Reset() {
+        customerList = new List<Customer>();
+        lastCustomerSpawned = 0f;
+        customerAtPos1 = false;
+        customerAtPos2 = false;
+        customerAtPos3 = false;
+        customerAtOrderDone = false;
     }
 
     private void Update() {
@@ -124,24 +129,43 @@ public class CustomerManager : MonoBehaviour
         Debug.Log("list of customers: " + customerNumbers + "   Total order count: " + orderManagerScript.GetOrderCount());
         //Debug.Log("Customer List" + customerList.Count.ToString());
         //Debug.Log("Order List" + orderManagerScript.GetOrderCount());
+
+        // Checks for duplicate customer copy
+        if (sceneName == "OrderScene") {
+            if (orderingPos1 != null && orderingPos1.transform.childCount > 1) {
+                GameObject customerCopy = orderingPos1.transform.GetChild(1).gameObject;
+                Destroy(customerCopy);
+            }
+            if (orderingPos2 != null && orderingPos2.transform.childCount > 1) {
+                GameObject customerCopy = orderingPos2.transform.GetChild(1).gameObject;
+                Destroy(customerCopy);
+            }
+            if (orderingPos3 != null && orderingPos3.transform.childCount > 1) {
+                GameObject customerCopy = orderingPos3.transform.GetChild(1).gameObject;
+                Destroy(customerCopy);
+            }
+        }
+
+        // Logic for handling new customers.
         if (sceneName == "OrderScene" && CanAddCustomer()) {
             // Play door opening
             audiosource.Play();
 
-            if (!customerAtPos1) {
+            if (!customerAtPos1 && orderingPos1 != null && orderingPos1.transform.childCount == 0) {
                 AddCustomer(orderingPos1);
                 customerAtPos1 = true;
                 lastCustomerSpawned = Time.time;
-            } else if (!customerAtPos2) {
+            } else if (!customerAtPos2 && orderingPos2 != null && orderingPos2.transform.childCount == 0) {
                 AddCustomer(orderingPos2);
                 customerAtPos2 = true;
                 lastCustomerSpawned = Time.time;
-            } else if (!customerAtPos3) {
+            } else if (!customerAtPos3 && orderingPos3 != null && orderingPos3.transform.childCount == 0) {
                 AddCustomer(orderingPos3);
                 customerAtPos3 = true;
                 lastCustomerSpawned = Time.time;
             }
-        } else if (CanAddCustomer() && sceneName != "StartScene") {
+
+        } else if (CanAddCustomer() && sceneName != "StartScene" && sceneName != "GameOverScene") {
             // Play door opening
             audiosource.Play();
     
@@ -161,11 +185,7 @@ public class CustomerManager : MonoBehaviour
                 customerList.Add(customer);
                 lastCustomerSpawned = Time.time;
             }
-        } else {
-            // Do nothing
         }
-
-
     }
 
     private bool CanAddCustomer() {

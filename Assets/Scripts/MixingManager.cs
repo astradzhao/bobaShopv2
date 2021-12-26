@@ -54,9 +54,16 @@ public class MixingManager : MonoBehaviour
     private void OnDisable() {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-    void Start()
-    {
-        
+    
+    public void Reset() {
+        mixers = new float[3];
+        mEnabled = new bool[3];
+        mixers[0] = 0;
+        mixers[1] = 0;
+        mixers[2] = 0;
+        mEnabled[0] = false;
+        mEnabled[0] = false;
+        mEnabled[0] = false;
     }
 
     // Update is called once per frame
@@ -64,7 +71,7 @@ public class MixingManager : MonoBehaviour
     {
         for (int i = 0; i < mixers.Length; i++) {
             if (mEnabled[i]) {
-                mixers[i] += Time.deltaTime * 2;
+                mixers[i] += Time.deltaTime * 1.5f;
             }
             if (currentScene == "MixingScene") {
                 updateSlider(i, mixers[i]);
@@ -104,7 +111,7 @@ public class MixingManager : MonoBehaviour
         } else if (m == 1) {
             mixingAudio1.Stop();
         } else if (m == 2) {
-            mixingAudio1.Stop();
+            mixingAudio2.Stop();
         }
     }
 

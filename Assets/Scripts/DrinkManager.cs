@@ -59,6 +59,20 @@ public class DrinkManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    public void Reset() {
+        drinks = new Dictionary<string, List<Drink>>();
+        drinks.Add("OrderScene", new List<Drink>());
+        drinks.Add("TeaBaseScene", new List<Drink>());
+        drinks.Add("IngredientsScene", new List<Drink>());
+        drinks.Add("MixingScene", new List<Drink>());
+        drinks.Add("MixingScene1", new List<Drink>());
+        drinks.Add("MixingScene2", new List<Drink>());
+        drinks.Add("MixingScene3", new List<Drink>());
+        drinks.Add("ToppingsScene", new List<Drink>());
+        drinks.Add("SealingScene", new List<Drink>());
+        newDrink();
+    }
+
     public void reloadObject() {
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "MixingScene") {
