@@ -64,7 +64,7 @@ public class MixingManager : MonoBehaviour
     {
         for (int i = 0; i < mixers.Length; i++) {
             if (mEnabled[i]) {
-                mixers[i] += Time.deltaTime;
+                mixers[i] += Time.deltaTime * 2;
             }
             if (currentScene == "MixingScene") {
                 updateSlider(i, mixers[i]);
@@ -79,6 +79,8 @@ public class MixingManager : MonoBehaviour
         if (ms != null) {
             Slider mSlider = ms.GetComponent<Slider>();
             mSlider.value = val;
+            // int score = (int) (1000 - ((Mathf.Abs(mixers[m] - 40)) / 40 * 1000));
+            // Debug.Log("Slider value: " + val.ToString() + "     Drink Mix Score: " + score.ToString());
         }
     }
     public void startMixer(int m) {
@@ -112,7 +114,10 @@ public class MixingManager : MonoBehaviour
         string stationString = "MixingScene" + n;
         if (dm.getStationDrinks(stationString).Count != 0) {
             Drink currentDrink = dm.getStationDrinks(stationString)[0];
-            int score = (int) (1000 - ((Mathf.Abs(mixers[m] - 50)) / 50 * 1000));
+            int score = (int) (1000 - ((Mathf.Abs(mixers[m] - 40)) / 40 * 1000));
+            if (score < 0) {
+                score = 0;
+            }
             currentDrink.mix(score);
         }
     }

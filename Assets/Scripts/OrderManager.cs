@@ -14,6 +14,8 @@ public class OrderManager : MonoBehaviour
     public GameObject drinkManager;
     public GameObject scoreManager;
     public GameObject customerManager;
+    public GameObject soundManager;
+    public SoundManager soundManagerScript;
     public static OrderManager singleton;
     private List<Drink> drinksOnOrderScene;
     private static Order currOrder;
@@ -67,6 +69,8 @@ public class OrderManager : MonoBehaviour
             drinksOnOrderScene = new List<Drink>();
             drinkManager = GameObject.Find("DrinkManager");
             scoreManager = GameObject.Find("ScoreManager");
+            soundManager = GameObject.Find("SoundManager");
+            soundManagerScript = soundManager.GetComponent<SoundManager>();
             if (sceneName == "OrderScene") {
                 customerManager = GameObject.Find("CustomerManager");
                 CheckDrinks();
@@ -98,6 +102,9 @@ public class OrderManager : MonoBehaviour
         newButton.transform.SetParent(buttonListContent, false);
         Text newButtonText = newButton.transform.GetChild(0).gameObject.GetComponent<Text>();
         newButtonText.text = order.GetOrderNum().ToString();
+
+        Button button = newButton.GetComponent<Button>();
+        button.onClick.AddListener(soundManagerScript.PlayOrderSelect);
     }
 
     public void RemoveOrder(Order completedOrder) {

@@ -961,6 +961,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4493883558337403260, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493883558337403260, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493883558458862004, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493883558458862004, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4493883558471996896, guid: 4ba14541990fd484c86886362887db00, type: 3}
       propertyPath: m_Name
       value: MixerSlider2
@@ -2634,6 +2650,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4493883558337403260, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493883558337403260, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493883558458862004, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493883558458862004, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4493883558471996896, guid: 4ba14541990fd484c86886362887db00, type: 3}
       propertyPath: m_Name
       value: MixerSlider1
@@ -3163,6 +3195,22 @@ PrefabInstance:
     - target: {fileID: 4493883558337403260, guid: 4ba14541990fd484c86886362887db00, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493883558337403260, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493883558337403260, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493883558458862004, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493883558458862004, guid: 4ba14541990fd484c86886362887db00, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4493883558471996926, guid: 4ba14541990fd484c86886362887db00, type: 3}
       propertyPath: m_MaxValue

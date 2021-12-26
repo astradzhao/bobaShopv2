@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour
     private AudioSource powder;
     private AudioSource customerOrder;
     private AudioSource trashCan;
+    private AudioSource orderSelect;
 
 
     // private void Awake() {
@@ -37,6 +38,7 @@ public class SoundManager : MonoBehaviour
             powder = this.transform.GetChild(3).GetComponent<AudioSource>();
             customerOrder = this.transform.GetChild(4).GetComponent<AudioSource>();
             trashCan = this.transform.GetChild(5).GetComponent<AudioSource>();
+            orderSelect = this.transform.GetChild(6).GetComponent<AudioSource>();
         }
         else if (singleton != this)
         {
@@ -219,5 +221,9 @@ public class SoundManager : MonoBehaviour
 
     public void PlayTrashCan() {
         trashCan.Play();
+    }
+
+    public void PlayOrderSelect() {
+        orderSelect.Play();
     }
 }
