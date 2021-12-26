@@ -338,7 +338,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0dca6480c575d6c4697063e5ff8275e4, type: 3}
   customerPrefab: {fileID: 6551441139534523614, guid: 176f3aad0a22c964c85eba7d2fda18b9, type: 3}
   canvas: {fileID: 0}
-  customerSpawnRate: 10
+  customerSpawnRate: 2
 --- !u!4 &322958780
 Transform:
   m_ObjectHideFlags: 0
