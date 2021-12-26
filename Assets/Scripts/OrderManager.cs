@@ -9,6 +9,7 @@ public class OrderManager : MonoBehaviour
 {
     public Button myOrdersBtn;
     public static List<Order> orderList;
+    public static Dictionary<int, GameObject> orderBttnObjMap;
     private static List<float> orderTimers;
     public GameObject drinkManager;
     public GameObject scoreManager;
@@ -31,6 +32,7 @@ public class OrderManager : MonoBehaviour
             singleton = this;
             ordersCompleted = 0;
             orderList = new List<Order>();
+            orderBttnObjMap = new Dictionary<int, GameObject>();
             orderTimers = new List<float>();
             currOrder = null;
         }
@@ -54,6 +56,7 @@ public class OrderManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName != "GameOverScene") {
+            orderBttnObjMap.Clear();
             myOrdersBtn = GameObject.Find("My Orders").GetComponent<Button>();
             myOrdersBtn.onClick.AddListener(ShowOrderList);
             buttonScrollList = GameObject.Find("ButtonScrollList");
@@ -91,6 +94,7 @@ public class OrderManager : MonoBehaviour
      // Adds new order button to the UI
     private void AddOrderButton(Order order) {
         GameObject newButton = Instantiate(newOrderBttnPrefab) as GameObject;
+        orderBttnObjMap.Add(order.GetOrderNum(), newButton);
         newButton.transform.SetParent(buttonListContent, false);
         Text newButtonText = newButton.transform.GetChild(0).gameObject.GetComponent<Text>();
         newButtonText.text = order.GetOrderNum().ToString();
@@ -107,8 +111,17 @@ public class OrderManager : MonoBehaviour
         else {
             currOrder = orderList[0];
         }
+        
+        // Removes the completed order while still on same scene (only happens on order scene)
+        int orderNum = completedOrder.GetOrderNum();
+        if (orderBttnObjMap.ContainsKey(orderNum)) {
+            GameObject orderBttnObj = orderBttnObjMap[orderNum];
+            Destroy(orderBttnObj);
+        }
+
         ReloadOrderText();
     }
+
 
     private void CheckDrinks() {
         DrinkManager dm = this.drinkManager.GetComponent<DrinkManager>();
@@ -207,15 +220,18 @@ public class OrderManager : MonoBehaviour
         }
     }
 
+    // Increases the number of completed orders.
     public void IncreaseCompletedOrders() {
         ordersCompleted += 1;
     }
 
+    // Gets the total number of completed orders.
     public int GetTotalCompletedOrders() {
         return ordersCompleted;
     }
 
+    // Get the next order number to assign to a customer.
     public int GetOrderCount() {
-        return orderList.Count;
+        return totalOrderCount;
     }
 }

@@ -121,7 +121,7 @@ public class CustomerManager : MonoBehaviour
             foreach (Customer customer in customerList) {
                 customerNumbers += customer.GetCustOrder().ToString() + " ";
             }
-        Debug.Log("list of customers: " + customerNumbers);
+        Debug.Log("list of customers: " + customerNumbers + "   Total order count: " + orderManagerScript.GetOrderCount());
         //Debug.Log("Customer List" + customerList.Count.ToString());
         //Debug.Log("Order List" + orderManagerScript.GetOrderCount());
         if (sceneName == "OrderScene" && CanAddCustomer()) {
@@ -346,7 +346,7 @@ public class CustomerManager : MonoBehaviour
         orderManagerScript.IncreaseCompletedOrders();
         drinkManagerScript.RemoveFromOrder(customer.GetCompletedDrink());
         orderManagerScript.RemoveOrder(customer.GetCompletedOrder());
-        orderManagerScript.ReloadOrderText();
+        //orderManagerScript.ReloadOrderText();
     }
 
     // Assigns the customer the corresponding order number upon clicking order button.
